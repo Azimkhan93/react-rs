@@ -4,17 +4,25 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "prepare": "husky install",
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "prettier --check .",
+    "lint": "tsc --noEmit; eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint --ext .ts,.tsx --fix src",
     "preview": "vite preview",
-    "prepare": "husky install",
-    "format": "prettier --write ."
+    "prettier": "prettier --check src",
+    "prettier:fix": "prettier --write src"
   },
   "husky": {
     "hooks": {
       "pre-commit": "prettier --write . && git add -A ."
     }
+  },
+  "lint-staged": {
+    "*.(ts|tsx|js|jsx)":[
+      "npm run lint:fix",
+      "npm run prettier:fix"
+    ]
   },
   "dependencies": {
     "react": "^18.2.0",
