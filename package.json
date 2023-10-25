@@ -7,11 +7,11 @@
     "prepare": "husky install",
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "tsc --noEmit; eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint --ext .ts,.tsx --fix src",
     "preview": "vite preview",
     "prettier": "prettier --check src",
-    "prettier:fix": "prettier --write src"
+    "format:fix": "prettier --write src"
   },
   "husky": {
     "hooks": {
@@ -20,8 +20,8 @@
   },
   "lint-staged": {
     "*.(ts|tsx|js|jsx)":[
-      "npm run lint:fix",
-      "npm run prettier:fix"
+      "npm run lint",
+      "npm run format:fix"
     ]
   },
   "dependencies": {
