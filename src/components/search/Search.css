@@ -1,9 +1,7 @@
 .search {
-  position: relative;
   display: flex;
   justify-content: center;
-  margin: 30px auto;
-  
+  margin-top: 30px;
 }
 
 .input-area {
@@ -14,4 +12,3 @@
   margin-right: 10px;
   border: 2px solid rgb(133, 133, 133);
 }
-
