@@ -1,0 +1,17 @@
+.search {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+  
+}
+
+.input-area {
+  border-radius: 10px;
+  height: 35px;
+  width: 400px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  border: 2px solid rgb(133, 133, 133);
+}
+
