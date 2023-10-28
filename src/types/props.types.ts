@@ -22,6 +22,7 @@ type Address = {
 
 export type UserData = {
   id?: number;
+  avatar?: string;
   first_name: string;
   last_name: string;
   employment: Employment;

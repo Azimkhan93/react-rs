@@ -11,6 +11,7 @@ class Card extends React.Component<UserData, State> {
   render() {
     return (
       <div className="card">
+        <img className="avatar" src={this.props.avatar} />
         <TextCard
           first_name={this.props.first_name}
           last_name={this.props.last_name}

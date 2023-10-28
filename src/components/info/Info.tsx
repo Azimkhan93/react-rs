@@ -15,7 +15,7 @@ class Info extends React.Component<EmptyProps, StateArr> {
 
   componentDidMount() {
     this.setState({ isLoading: true });
-    fetch('https://random-data-api.com/api/v2/users?size=12')
+    fetch('https://random-data-api.com/api/v2/users?response_type=json&size=32')
       .then((response) => response.json())
       .then((data: UserData[]) => {
         this.setState({
@@ -33,6 +33,7 @@ class Info extends React.Component<EmptyProps, StateArr> {
       this.state.output.map((user) => (
         <Card
           key={user.id}
+          avatar={user.avatar}
           first_name={user.first_name}
           last_name={user.last_name}
           employment={user.employment}
