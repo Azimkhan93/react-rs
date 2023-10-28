@@ -8,11 +8,11 @@
   height: 200px;
   border: 3px solid #0276ff;
   box-sizing: border-box;
-  background-color: #E7E8D1;
+  background-color: #e7e8d1;
   margin-left: 5%;
 }
 
-.avatar{
+.avatar {
   position: absolute;
   top: 0;
   height: 7rem;

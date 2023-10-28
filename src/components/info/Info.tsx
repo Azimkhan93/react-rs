@@ -4,6 +4,8 @@ import './Info.css';
 import { EmptyProps, StateArr, UserData } from '../../types/props.types';
 import Loader from './loader/Loader';
 
+const CANCEL_REQUEST_KEY = 'request-was-cancelled-due-to-strict-rerender';
+
 class Info extends React.Component<EmptyProps, StateArr> {
   constructor(props: Record<string, never>) {
     super(props);
@@ -13,9 +15,19 @@ class Info extends React.Component<EmptyProps, StateArr> {
     } as StateArr;
   }
 
+  controller: AbortController | null = null;
+
   componentDidMount() {
+    this.controller = new AbortController();
+
+    const { signal } = this.controller;
+    console.log(this.controller.signal.aborted);
+
     this.setState({ isLoading: true });
-    fetch('https://random-data-api.com/api/v2/users?response_type=json&size=32')
+    fetch(
+      'https://random-data-api.com/api/v2/users?response_type=json&size=32',
+      { signal }
+    )
       .then((response) => response.json())
       .then((data: UserData[]) => {
         this.setState({
@@ -23,7 +35,16 @@ class Info extends React.Component<EmptyProps, StateArr> {
           output: data,
         });
         console.log(this.state.output);
+      })
+      .catch((e: string | Record<string, unknown>) => {
+        if (e !== CANCEL_REQUEST_KEY) {
+          throw e;
+        }
       });
+  }
+
+  componentWillUnmount(): void {
+    (this.controller as AbortController).abort(CANCEL_REQUEST_KEY);
   }
 
   render() {

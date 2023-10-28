@@ -1,10 +1,10 @@
-body, #root {
-  margin:0;
-  background-color: #A7BEAE;
+body,
+#root {
+  margin: 0;
+  background-color: #a7beae;
   height: 100%;
 }
 
-html{
+html {
   height: 100vh;
 }
-
