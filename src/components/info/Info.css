@@ -1,0 +1,7 @@
+.info-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 35px 10%;
+  background-color: #a7beae;
+}
