@@ -1,22 +1,20 @@
 import React from 'react';
 import TextCard from './TextCard';
-import { UserData, State } from '../../../types/props.types';
+import { State, UserDataResults } from '../../../types/props.types';
 import './Card.css';
 
-class Card extends React.Component<UserData, State> {
-  constructor(props: UserData) {
+class Card extends React.Component<UserDataResults, State> {
+  constructor(props: UserDataResults) {
     super(props);
   }
 
   render() {
     return (
       <div className="card">
-        <img className="avatar" src={this.props.avatar} />
         <TextCard
-          first_name={this.props.first_name}
-          last_name={this.props.last_name}
-          employment={this.props.employment}
-          address={this.props.address}
+          name={this.props.name}
+          manufacturer={this.props.manufacturer}
+          vehicle_class={this.props.vehicle_class}
         />
       </div>
     );

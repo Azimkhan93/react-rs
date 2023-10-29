@@ -24,15 +24,13 @@ class Info extends React.Component<EmptyProps, StateArr> {
     console.log(this.controller.signal.aborted);
 
     this.setState({ isLoading: true });
-    fetch(
-      'https://random-data-api.com/api/v2/users?response_type=json&size=32',
-      { signal }
-    )
+    fetch('https://swapi.dev/api/vehicles/?page=1', { signal })
       .then((response) => response.json())
-      .then((data: UserData[]) => {
+      .then((data: UserData) => {
+        console.log(data);
         this.setState({
           isLoading: false,
-          output: data,
+          output: data.results,
         });
         console.log(this.state.output);
       })
@@ -53,12 +51,10 @@ class Info extends React.Component<EmptyProps, StateArr> {
     ) : (
       this.state.output.map((user) => (
         <Card
-          key={user.id}
-          avatar={user.avatar}
-          first_name={user.first_name}
-          last_name={user.last_name}
-          employment={user.employment}
-          address={user.address}
+          key={Math.floor(Math.random() * 1000)}
+          name={user.name}
+          manufacturer={user.manufacturer}
+          vehicle_class={user.vehicle_class}
         />
       ))
     );

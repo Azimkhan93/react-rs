@@ -1,9 +1,9 @@
 import React from 'react';
-import { UserData, State } from '../../../types/props.types';
+import { State, UserDataResults } from '../../../types/props.types';
 import './TextCard.css';
 
-class TextCard extends React.Component<UserData, State> {
-  constructor(props: UserData) {
+class TextCard extends React.Component<UserDataResults, State> {
+  constructor(props: UserDataResults) {
     super(props);
   }
 
@@ -13,19 +13,17 @@ class TextCard extends React.Component<UserData, State> {
         <span>
           <b>Name: </b>
         </span>
-        {this.props.first_name}
-        &nbsp;
-        {this.props.last_name}
+        {this.props.name}
         <br />
         <span>
-          <b>Title: </b>
+          <b>Manufacturer: </b>
         </span>
-        {this.props.employment?.title}
+        {this.props.manufacturer}
         <br />
         <span>
-          <b>City: </b>
+          <b>Vehicle Class: </b>
         </span>
-        {this.props.address?.city}
+        {this.props.vehicle_class}
       </div>
     );
   }
