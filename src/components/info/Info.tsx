@@ -54,6 +54,8 @@ class Info extends React.Component<EmptyProps, StateArr> {
   render() {
     const infoComponents = this.state.isLoading ? (
       <Loader />
+    ) : this.state.output.length === 0 ? (
+      <h1>Nothing was found</h1>
     ) : (
       this.state.output.map((user) => (
         <Card

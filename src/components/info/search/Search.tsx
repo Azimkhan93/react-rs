@@ -31,7 +31,7 @@ class Search extends React.Component<InputCaptureProps, SearchComponent> {
           type="search"
           className="input-area"
           name="search"
-          placeholder="Search"
+          placeholder="Search by name"
           onChange={this.handleInputChange}
         />
         <button className="search-btn" onClick={this.handleButtonClick}>
