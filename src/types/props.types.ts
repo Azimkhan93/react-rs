@@ -18,4 +18,9 @@ export type State = {
 export type StateArr = {
   output: UserDataResults[] | Record<string, never>;
   isLoading: boolean;
+  searchText: string;
+};
+
+export type SearchComponent = {
+  inputText: string;
 };

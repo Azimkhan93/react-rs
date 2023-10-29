@@ -3,8 +3,7 @@ import Card from './card/Card';
 import './Info.css';
 import { EmptyProps, StateArr, UserData } from '../../types/props.types';
 import Loader from './loader/Loader';
-
-const CANCEL_REQUEST_KEY = 'request-was-cancelled-due-to-strict-rerender';
+import Search from './search/Search';
 
 class Info extends React.Component<EmptyProps, StateArr> {
   constructor(props: Record<string, never>) {
@@ -12,19 +11,16 @@ class Info extends React.Component<EmptyProps, StateArr> {
     this.state = {
       output: [],
       isLoading: false,
+      searchText: '',
     } as StateArr;
+    this.fetchData = this.fetchData.bind(this);
   }
 
-  controller: AbortController | null = null;
-
-  componentDidMount() {
-    this.controller = new AbortController();
-
-    const { signal } = this.controller;
-    console.log(this.controller.signal.aborted);
-
+  fetchData = () => {
     this.setState({ isLoading: true });
-    fetch('https://swapi.dev/api/vehicles/?page=1', { signal })
+    fetch(
+      `https://swapi.dev/api/vehicles/?page=1&search=${this.state.searchText}`
+    )
       .then((response) => response.json())
       .then((data: UserData) => {
         console.log(data);
@@ -32,18 +28,26 @@ class Info extends React.Component<EmptyProps, StateArr> {
           isLoading: false,
           output: data.results,
         });
-        console.log(this.state.output);
       })
       .catch((e: string | Record<string, unknown>) => {
-        if (e !== CANCEL_REQUEST_KEY) {
-          throw e;
-        }
+        console.error('Error fetching data:', e);
       });
+  };
+
+  componentDidMount() {
+    this.fetchData();
   }
 
-  componentWillUnmount(): void {
-    (this.controller as AbortController).abort(CANCEL_REQUEST_KEY);
+  componentDidUpdate(_prevProps: EmptyProps, prevState: StateArr) {
+    if (this.state.searchText !== prevState.searchText) {
+      this.fetchData();
+    }
   }
+
+  handleSave = (text: string): void => {
+    console.log('Saved text in parent:', text);
+    this.setState({ searchText: text });
+  };
 
   render() {
     const infoComponents = this.state.isLoading ? (
@@ -58,7 +62,12 @@ class Info extends React.Component<EmptyProps, StateArr> {
         />
       ))
     );
-    return <div className="info-container">{infoComponents}</div>;
+    return (
+      <div>
+        <Search onSaveText={this.handleSave} />
+        <div className="info-container">{infoComponents}</div>;
+      </div>
+    );
   }
 }
 
