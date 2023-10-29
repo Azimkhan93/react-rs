@@ -4,6 +4,7 @@ import './Info.css';
 import { EmptyProps, StateArr, UserData } from '../../types/props.types';
 import Loader from './loader/Loader';
 import Search from './search/Search';
+import ErrorTestButton from '../errorBoundary/errorTestButton';
 
 class Info extends React.Component<EmptyProps, StateArr> {
   constructor(props: Record<string, never>) {
@@ -69,7 +70,8 @@ class Info extends React.Component<EmptyProps, StateArr> {
     return (
       <div>
         <Search onSaveText={this.handleSave} />
-        <div className="info-container">{infoComponents}</div>;
+        <ErrorTestButton>Error</ErrorTestButton>
+        <div className="info-container">{infoComponents}</div>
       </div>
     );
   }
