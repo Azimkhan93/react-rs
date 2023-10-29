@@ -1,10 +1,10 @@
-.error__button-container{
+.error__button-container {
   text-align: center;
   position: relative;
   height: 10px;
 }
 
-.error__button{
+.error__button {
   font-size: 1.5rem;
   color: aliceblue;
   background-color: brown;
