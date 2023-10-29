@@ -10,7 +10,7 @@ class Search extends React.Component<InputCaptureProps, SearchComponent> {
   constructor(props: InputCaptureProps) {
     super(props);
     this.state = {
-      inputText: '',
+      inputText: ' ',
     } as SearchComponent;
   }
   handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +21,7 @@ class Search extends React.Component<InputCaptureProps, SearchComponent> {
   handleButtonClick = () => {
     const { inputText } = this.state;
     this.props.onSaveText(inputText);
+    localStorage.setItem('searchKey', inputText);
   };
 
   render() {

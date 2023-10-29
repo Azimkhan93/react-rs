@@ -18,9 +18,11 @@ class Info extends React.Component<EmptyProps, StateArr> {
 
   fetchData = () => {
     this.setState({ isLoading: true });
-    fetch(
-      `https://swapi.dev/api/vehicles/?page=1&search=${this.state.searchText}`
-    )
+    const searchItem: string | null =
+      localStorage.getItem('searchKey') === ''
+        ? this.state.searchText
+        : localStorage.getItem('searchKey');
+    fetch(`https://swapi.dev/api/vehicles/?page=1&search=${searchItem}`)
       .then((response) => response.json())
       .then((data: UserData) => {
         console.log(data);
