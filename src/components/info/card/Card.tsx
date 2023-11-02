@@ -1,24 +1,22 @@
 import React from 'react';
 import TextCard from './TextCard';
-import { State, UserDataResults } from '../../../types/props.types';
+import { UserDataResults } from '../../../types/props.types';
 import './Card.css';
 
-class Card extends React.Component<UserDataResults, State> {
-  constructor(props: UserDataResults) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div className="card">
-        <TextCard
-          name={this.props.name}
-          manufacturer={this.props.manufacturer}
-          vehicle_class={this.props.vehicle_class}
-        />
-      </div>
-    );
-  }
-}
+const Card: React.FC<UserDataResults> = ({
+  name,
+  manufacturer,
+  vehicle_class,
+}: UserDataResults) => {
+  return (
+    <div className="card">
+      <TextCard
+        name={name}
+        manufacturer={manufacturer}
+        vehicle_class={vehicle_class}
+      />
+    </div>
+  );
+};
 
 export default Card;
