@@ -1,45 +1,39 @@
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './search.css';
-import { SearchComponent } from '../../../types/props.types';
 
 interface InputCaptureProps {
   onSaveText: (text: string) => void;
 }
 
-class Search extends React.Component<InputCaptureProps, SearchComponent> {
-  constructor(props: InputCaptureProps) {
-    super(props);
-    this.state = {
-      inputText: ' ',
-    } as SearchComponent;
-  }
-  handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+const Search: React.FC<InputCaptureProps> = ({
+  onSaveText,
+}: InputCaptureProps) => {
+  const [inputText, setInputText] = useState(' ');
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault();
     console.log(event.target.value);
-    this.setState({ inputText: event.target.value as string });
+    setInputText(event.target.value);
   };
-  handleButtonClick = () => {
-    const { inputText } = this.state;
-    this.props.onSaveText(inputText);
+  const handleButtonClick = (): void => {
+    onSaveText(inputText);
     localStorage.setItem('searchKey', inputText);
   };
 
-  render() {
-    return (
-      <div className="search">
-        <input
-          type="search"
-          className="input-area"
-          name="search"
-          placeholder="Search by name"
-          onChange={this.handleInputChange}
-        />
-        <button className="search-btn" onClick={this.handleButtonClick}>
-          Go
-        </button>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="search">
+      <input
+        type="search"
+        className="input-area"
+        name="search"
+        placeholder="Search by name"
+        onChange={handleInputChange}
+      />
+      <button className="search-btn" onClick={handleButtonClick}>
+        Go
+      </button>
+    </div>
+  );
+};
 
 export default Search;

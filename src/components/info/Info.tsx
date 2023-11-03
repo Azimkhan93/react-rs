@@ -1,81 +1,84 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Card from './card/Card';
 import './Info.css';
-import { EmptyProps, StateArr, UserData } from '../../types/props.types';
+import { EmptyProps, UserData, UserDataResults } from '../../types/props.types';
 import Loader from './loader/Loader';
 import Search from './search/Search';
 import ErrorTestButton from '../errorBoundary/errorTestButton';
 
-class Info extends React.Component<EmptyProps, StateArr> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = {
-      output: [],
-      isLoading: false,
-      searchText: '',
-    } as StateArr;
-    this.fetchData = this.fetchData.bind(this);
-  }
+const Info: React.FC<EmptyProps> = () => {
+  const [output, setOutput] = useState([] as UserDataResults[]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchText, setSearchText] = useState('');
 
-  fetchData = () => {
-    this.setState({ isLoading: true });
+  const fetchData = useCallback(() => {
+    setIsLoading(true);
     const searchItem: string | null =
-      localStorage.getItem('searchKey') === '' ||
-      !localStorage.getItem('searchKey')
-        ? this.state.searchText
-        : localStorage.getItem('searchKey');
-    fetch(`https://swapi.dev/api/vehicles/?page=1&search=${searchItem}`)
-      .then((response) => response.json())
-      .then((data: UserData) => {
-        console.log(data);
-        this.setState({
-          isLoading: false,
-          output: data.results,
-        });
-      })
-      .catch((e: string | Record<string, unknown>) => {
-        console.error('Error fetching data:', e);
-      });
-  };
+      searchText || localStorage.getItem('searchKey');
 
-  componentDidMount() {
-    this.fetchData();
-  }
+    const fetchPages = async () => {
+      try {
+        const promises = [];
+        for (let page: number = 1; page <= 4; page++) {
+          promises.push(
+            fetch(
+              `https://swapi.dev/api/vehicles/?page=${page}&search=${searchItem}`
+            )
+              .then((response) => response.json())
+              .then((data: UserData) => {
+                return data.results;
+              })
+              .catch((e: string | Record<string, unknown>) => {
+                console.error('Error fetching data:', e);
+                return [];
+              })
+          );
+        }
 
-  componentDidUpdate(_prevProps: EmptyProps, prevState: StateArr) {
-    if (this.state.searchText !== prevState.searchText) {
-      this.fetchData();
-    }
-  }
+        const results = await Promise.all(promises);
+        const combinedResults = results.flat();
+        setOutput(combinedResults);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
+      }
+    };
 
-  handleSave = (text: string): void => {
+    fetchPages();
+  }, [searchText]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const handleSave = (text: string): void => {
     console.log('Saved text in parent:', text);
-    this.setState({ searchText: text });
+    setSearchText(text);
   };
 
-  render() {
-    const infoComponents = this.state.isLoading ? (
-      <Loader />
-    ) : this.state.output.length === 0 ? (
-      <h1>Nothing was found</h1>
-    ) : (
-      this.state.output.map((user) => (
-        <Card
-          key={Math.floor(Math.random() * 1000)}
-          name={user.name}
-          manufacturer={user.manufacturer}
-          vehicle_class={user.vehicle_class}
-        />
-      ))
-    );
-    return (
-      <div>
-        <Search onSaveText={this.handleSave} />
-        <ErrorTestButton>Error</ErrorTestButton>
-        <div className="info-container">{infoComponents}</div>
-      </div>
-    );
-  }
-}
+  const infoComponents = isLoading ? (
+    <Loader />
+  ) : output.length === 0 ? (
+    <h1>Nothing was found</h1>
+  ) : (
+    output.map((user, index) => (
+      <Card
+        key={index}
+        name={user.name}
+        manufacturer={user.manufacturer}
+        vehicle_class={user.vehicle_class}
+      />
+    ))
+  );
+
+  return (
+    <div>
+      <Search onSaveText={handleSave} />
+      <ErrorTestButton>Error</ErrorTestButton>
+      <div className="info-container">{infoComponents}</div>
+    </div>
+  );
+};
 
 export default Info;
