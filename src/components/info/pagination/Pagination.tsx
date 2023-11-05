@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-
 type Props = {
   page: string | null;
+  limitParam: string | null;
   elementCount: number;
   onPageChange: (key: string, value: string) => void;
   onLimitChange: (key: string, value: string) => void;
 };
-
+const initialLimit = 10;
 const Pagination = ({
   page,
+  limitParam,
   elementCount,
   onLimitChange,
   onPageChange,
 }: Props) => {
-  const [limit, setLimit] = useState(10);
-  // const [searchParams, setSearchParams] = useSearchParams();
-
+  const limit = Number(limitParam) || initialLimit;
   const handleItemsPerPageChange = (e: { target: { value: string } }) => {
     const selectedItemsPerPage = Number(e.target.value);
-    setLimit(selectedItemsPerPage);
-    onLimitChange('limit', limit.toString());
+    console.log(selectedItemsPerPage);
+    // setLimit(selectedItemsPerPage);
+    onLimitChange('limit', selectedItemsPerPage.toString());
+    onPageChange('page', '1');
   };
 
   const handleClick = (page: number) => {

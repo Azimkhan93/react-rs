@@ -49,10 +49,6 @@ const Info: React.FC<EmptyProps> = () => {
                 setElementCount(data.count);
                 return data.results;
               })
-              .catch((e: string | Record<string, unknown>) => {
-                console.error('Error fetching data:', e);
-                throw e;
-              })
           );
         }
 
@@ -126,6 +122,7 @@ const Info: React.FC<EmptyProps> = () => {
       <Pagination
         elementCount={elementCount}
         page={searchParams.get('page')}
+        limitParam={searchParams.get('limit')}
         onPageChange={handleSearchParams}
         onLimitChange={handleSearchParams}
       />
