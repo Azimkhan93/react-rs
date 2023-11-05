@@ -1,0 +1,16 @@
+.error__button-container {
+  text-align: center;
+  position: relative;
+  height: 10px;
+  width: 150px;
+  text-wrap: nowrap;
+}
+
+.error__button {
+  font-size: 1.5rem;
+  color: aliceblue;
+  background-color: brown;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
