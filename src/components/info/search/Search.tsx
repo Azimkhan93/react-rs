@@ -1,22 +1,26 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent } from 'react';
 import './search.css';
 
 interface InputCaptureProps {
-  onSaveText: (text: string) => void;
+  onSearchChange: (text: string) => void;
+  onSearchClick: (text: string) => void;
+  searchText: string;
+  inputText: string;
 }
 
-const Search: React.FC<InputCaptureProps> = ({
-  onSaveText,
+const Search = ({
+  onSearchChange,
+  onSearchClick,
+  searchText,
+  inputText,
 }: InputCaptureProps) => {
-  const [inputText, setInputText] = useState(' ');
-
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    event.preventDefault();
-    console.log(event.target.value);
-    setInputText(event.target.value);
+    console.log('event-target-value', event.target.value);
+    onSearchChange(event.target.value);
   };
+
   const handleButtonClick = (): void => {
-    onSaveText(inputText);
+    onSearchClick(searchText);
     localStorage.setItem('searchKey', inputText);
   };
 
@@ -28,6 +32,7 @@ const Search: React.FC<InputCaptureProps> = ({
         name="search"
         placeholder="Search by name"
         onChange={handleInputChange}
+        value={inputText}
       />
       <button className="search-btn" onClick={handleButtonClick}>
         Go

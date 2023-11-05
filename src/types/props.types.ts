@@ -8,6 +8,9 @@ export type UserDataResults = {
 };
 
 export type UserData = {
+  count: number;
+  previous: string | null;
+  next: string | null;
   results: UserDataResults[];
 };
 
@@ -23,4 +26,10 @@ export type StateArr = {
 
 export type SearchComponent = {
   inputText: string;
+};
+
+export type QueryParams = {
+  limit?: string;
+  page?: string;
+  search?: string;
 };

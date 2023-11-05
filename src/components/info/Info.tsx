@@ -5,38 +5,66 @@ import { EmptyProps, UserData, UserDataResults } from '../../types/props.types';
 import Loader from './loader/Loader';
 import Search from './search/Search';
 import ErrorTestButton from '../errorBoundary/errorTestButton';
+import Pagination from './pagination/Pagination';
+import { useSearchParams } from 'react-router-dom';
+
+const getInitSearchText = () => {
+  return localStorage.getItem('searchKey') || '';
+};
 
 const Info: React.FC<EmptyProps> = () => {
   const [output, setOutput] = useState([] as UserDataResults[]);
   const [isLoading, setIsLoading] = useState(false);
-  const [searchText, setSearchText] = useState('');
+  const [inputText, setInputText] = useState(getInitSearchText());
+  const [searchText, setSearchText] = useState(getInitSearchText());
+  const [elementCount, setElementCount] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const fetchData = useCallback(() => {
     setIsLoading(true);
-    const searchItem: string | null =
-      searchText || localStorage.getItem('searchKey');
 
     const fetchPages = async () => {
       try {
+        console.log('searchParams', searchParams);
+        const page = Number(searchParams.get('page')) || 1;
+        // console.log('page', page);
+        const limit = Number(searchParams.get('limit')) || 10;
+        const startPage = ((page - 1) * limit) / 10 + 1;
+        const endPage = (limit / 10) * page;
+
         const promises = [];
-        for (let page: number = 1; page <= 4; page++) {
+        for (let apiPage: number = startPage; apiPage <= endPage; apiPage++) {
           promises.push(
             fetch(
-              `https://swapi.dev/api/vehicles/?page=${page}&search=${searchItem}`
+              `https://swapi.dev/api/vehicles/?page=${apiPage}&search=${searchText}`
             )
-              .then((response) => response.json())
+              .then((response) => {
+                if (!response.ok) {
+                  throw Error(`Status = ${response.status}`);
+                }
+
+                return response.json();
+              })
               .then((data: UserData) => {
+                setElementCount(data.count);
                 return data.results;
               })
               .catch((e: string | Record<string, unknown>) => {
                 console.error('Error fetching data:', e);
-                return [];
+                throw e;
               })
           );
         }
 
-        const results = await Promise.all(promises);
-        const combinedResults = results.flat();
+        const results = await Promise.allSettled(promises);
+        // console.log('results', results);
+        const combinedResults = results
+          .filter((result) => result.status === 'fulfilled')
+          .map(
+            (result) =>
+              (result as PromiseFulfilledResult<UserDataResults[]>).value
+          )
+          .flat();
         setOutput(combinedResults);
         setIsLoading(false);
       } catch (error) {
@@ -46,17 +74,32 @@ const Info: React.FC<EmptyProps> = () => {
     };
 
     fetchPages();
-  }, [searchText]);
+  }, [searchParams, searchText]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  const handleSave = (text: string): void => {
-    console.log('Saved text in parent:', text);
-    setSearchText(text);
+  const handleSearchParams = (key: string, value: string) => {
+    setSearchParams((prevParams) => {
+      prevParams.set(key, value);
+
+      return prevParams;
+    });
   };
 
+  const handleSearchChange = (text: string): void => {
+    // console.log('Saved text in parent:', text);
+    setInputText(text);
+  };
+
+  const handleSearchClick = (): void => {
+    // console.log('Saved text in parent:', text);
+    setSearchText(inputText);
+    handleSearchParams('search', inputText);
+  };
+
+  // console.log('output', output);
   const infoComponents = isLoading ? (
     <Loader />
   ) : output.length === 0 ? (
@@ -74,7 +117,18 @@ const Info: React.FC<EmptyProps> = () => {
 
   return (
     <div>
-      <Search onSaveText={handleSave} />
+      <Search
+        onSearchChange={handleSearchChange}
+        onSearchClick={handleSearchClick}
+        searchText={searchText}
+        inputText={inputText}
+      />
+      <Pagination
+        elementCount={elementCount}
+        page={searchParams.get('page')}
+        onPageChange={handleSearchParams}
+        onLimitChange={handleSearchParams}
+      />
       <ErrorTestButton>Error</ErrorTestButton>
       <div className="info-container">{infoComponents}</div>
     </div>

@@ -2,6 +2,8 @@
   text-align: center;
   position: relative;
   height: 10px;
+  width: 150px;
+  text-wrap: nowrap;
 }
 
 .error__button {
