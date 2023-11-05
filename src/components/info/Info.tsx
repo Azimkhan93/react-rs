@@ -6,29 +6,36 @@ import Loader from './loader/Loader';
 import Search from './search/Search';
 import ErrorTestButton from '../errorBoundary/errorTestButton';
 import Pagination from './pagination/Pagination';
-import { useSearchParams } from 'react-router-dom';
+import {
+  useSearchParams,
+  Outlet,
+  useNavigate,
+  generatePath,
+} from 'react-router-dom';
 
 const getInitSearchText = () => {
   return localStorage.getItem('searchKey') || '';
 };
 
 const Info: React.FC<EmptyProps> = () => {
-  const [output, setOutput] = useState([] as UserDataResults[]);
+  const [userCards, setUserCards] = useState([] as UserDataResults[]);
   const [isLoading, setIsLoading] = useState(false);
   const [inputText, setInputText] = useState(getInitSearchText());
   const [searchText, setSearchText] = useState(getInitSearchText());
   const [elementCount, setElementCount] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const limitParam = searchParams.get('limit');
+  const pageParam = searchParams.get('page');
 
   const fetchData = useCallback(() => {
     setIsLoading(true);
 
     const fetchPages = async () => {
       try {
-        console.log('searchParams', searchParams);
-        const page = Number(searchParams.get('page')) || 1;
-        // console.log('page', page);
-        const limit = Number(searchParams.get('limit')) || 10;
+        const page = Number(pageParam) || 1;
+        const limit = Number(limitParam) || 10;
         const startPage = ((page - 1) * limit) / 10 + 1;
         const endPage = (limit / 10) * page;
 
@@ -53,15 +60,20 @@ const Info: React.FC<EmptyProps> = () => {
         }
 
         const results = await Promise.allSettled(promises);
-        // console.log('results', results);
         const combinedResults = results
           .filter((result) => result.status === 'fulfilled')
           .map(
             (result) =>
               (result as PromiseFulfilledResult<UserDataResults[]>).value
           )
-          .flat();
-        setOutput(combinedResults);
+          .flat()
+          .map((value) => {
+            const splittedUrl = value.url.split('/');
+            console.log('value', value);
+            const id = splittedUrl[splittedUrl.length - 2];
+            return { ...value, id };
+          });
+        setUserCards(combinedResults);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -70,7 +82,7 @@ const Info: React.FC<EmptyProps> = () => {
     };
 
     fetchPages();
-  }, [searchParams, searchText]);
+  }, [limitParam, pageParam, searchText]);
 
   useEffect(() => {
     fetchData();
@@ -85,24 +97,35 @@ const Info: React.FC<EmptyProps> = () => {
   };
 
   const handleSearchChange = (text: string): void => {
-    // console.log('Saved text in parent:', text);
     setInputText(text);
   };
 
   const handleSearchClick = (): void => {
-    // console.log('Saved text in parent:', text);
     setSearchText(inputText);
     handleSearchParams('search', inputText);
   };
 
-  // console.log('output', output);
+  const handleCardClick = (id: string) => {
+    const path = generatePath('/:id', { id });
+    const entries = searchParams.entries();
+    const searchArray: string[] = [];
+    for (const entry of entries) {
+      searchArray.push(entry.join('='));
+    }
+    navigate({
+      pathname: path,
+      search: searchArray.join('&'),
+    });
+  };
+
   const infoComponents = isLoading ? (
     <Loader />
-  ) : output.length === 0 ? (
+  ) : userCards.length === 0 ? (
     <h1>Nothing was found</h1>
   ) : (
-    output.map((user, index) => (
+    userCards.map((user, index) => (
       <Card
+        onCardClick={() => handleCardClick(user.id)}
         key={index}
         name={user.name}
         manufacturer={user.manufacturer}
@@ -127,7 +150,10 @@ const Info: React.FC<EmptyProps> = () => {
         onLimitChange={handleSearchParams}
       />
       <ErrorTestButton>Error</ErrorTestButton>
-      <div className="info-container">{infoComponents}</div>
+      <div className="general-container">
+        <div className="info-container">{infoComponents}</div>
+        <Outlet />
+      </div>
     </div>
   );
 };

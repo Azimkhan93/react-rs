@@ -1,10 +1,11 @@
 export type EmptyProps = Record<string, never>;
 
 export type UserDataResults = {
-  id?: number;
+  id: string;
   name: string;
   manufacturer: string;
   vehicle_class: string;
+  url: string;
 };
 
 export type UserData = {

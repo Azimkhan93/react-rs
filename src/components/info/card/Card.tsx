@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import TextCard from './TextCard';
-import { UserDataResults } from '../../../types/props.types';
 import './Card.css';
 
-const Card: React.FC<UserDataResults> = ({
-  name,
-  manufacturer,
-  vehicle_class,
-}: UserDataResults) => {
+type Props = {
+  onCardClick: MouseEventHandler<HTMLDivElement>;
+  name: string;
+  manufacturer: string;
+  vehicle_class: string;
+};
+
+const Card = ({ onCardClick, name, manufacturer, vehicle_class }: Props) => {
   return (
-    <div className="card">
+    <div onClick={onCardClick} className="card">
       <TextCard
         name={name}
         manufacturer={manufacturer}

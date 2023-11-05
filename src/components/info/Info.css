@@ -1,9 +1,19 @@
+.general-container{
+  display: flex;
+
+}
+
 .info-container {
   display: flex;
+  flex: 1 1 0px;
   flex-wrap: wrap;
   gap: 15px;
   padding: 35px 10%;
   background-color: #a7beae;
+}
+.detail-container{
+  display: none;
+  flex: 1 1 0px;
 }
 
 .option-buttons {

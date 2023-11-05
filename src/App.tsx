@@ -2,32 +2,31 @@
 import React from 'react';
 import Info from './components/info/Info';
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  Route,
+} from 'react-router-dom';
+import Details from './components/details/Details';
 
-// const router = createBrowserRouter(
-//   createRoutesFromElements(
-//     <Routes>
-//       <Route index element={<Page1 />}/>
-//       <Route />
-//     </Routes>
-//   )
-// );
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route
+      path="/"
+      element={
+        <div className="container">
+          <Info />
+        </div>
+      }
+    >
+      <Route path=":id" element={<Details />}></Route>
+    </Route>
+  )
+);
 
 const App: React.FC = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <div className="container">
-              <Info />
-            </div>
-          }
-        ></Route>
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
 
 export default App;

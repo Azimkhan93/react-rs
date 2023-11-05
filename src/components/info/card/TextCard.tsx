@@ -1,12 +1,12 @@
 import React from 'react';
-import { UserDataResults } from '../../../types/props.types';
 import './TextCard.css';
 
-const TextCard: React.FC<UserDataResults> = ({
-  name,
-  manufacturer,
-  vehicle_class,
-}: UserDataResults) => {
+type Props = {
+  name: string;
+  manufacturer: string;
+  vehicle_class: string;
+};
+const TextCard = ({ name, manufacturer, vehicle_class }: Props) => {
   return (
     <div className="textcard">
       <span>
