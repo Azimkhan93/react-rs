@@ -1,6 +1,5 @@
-.general-container{
+.general-container {
   display: flex;
-
 }
 
 .info-container {
@@ -10,10 +9,6 @@
   gap: 15px;
   padding: 35px 10%;
   background-color: #a7beae;
-}
-.detail-container{
-  display: none;
-  flex: 1 1 0px;
 }
 
 .option-buttons {

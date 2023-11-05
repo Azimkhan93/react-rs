@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, generatePath } from 'react-router-dom';
+import './Details.css';
+import Loader from '../info/loader/Loader';
+import DetailCard from './DetailCard';
 
-type CardDetail = {
+export type CardDetail = {
   name: string;
   model: string;
   manufacturer: string;
@@ -14,13 +17,14 @@ type CardDetail = {
   consumables: string;
   vehicle_class: string;
 };
-
 const Details = () => {
-  // const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [cardDetail, setCardDetail] = useState<CardDetail>();
   const params = useParams<{ id: string }>();
 
   const fetchDetail = useCallback(() => {
+    setIsLoading(true);
     console.log(params.id);
 
     fetch(`https://swapi.dev/api/vehicles/${params.id}`)
@@ -34,6 +38,7 @@ const Details = () => {
       .then((data: CardDetail) => {
         console.log(data);
         setCardDetail(data);
+        setIsLoading(false);
         return data;
       });
   }, [params.id]);
@@ -42,40 +47,22 @@ const Details = () => {
     fetchDetail();
   }, [fetchDetail]);
 
-  return (
-    <div>
-      <div>
-        <b>Name:</b> {cardDetail?.name}
-      </div>
-      <div>
-        <b>Model:</b> {cardDetail?.model}
-      </div>
-      <div>
-        <b>Manufacturer:</b> {cardDetail?.manufacturer}
-      </div>
-      <div>
-        <b>Cost:</b> {cardDetail?.cost_in_credits}
-      </div>
-      <div>
-        <b>Max Atmosphering speed:</b> {cardDetail?.max_atmosphering_speed}
-      </div>
-      <div>
-        <b>Crew:</b> {cardDetail?.crew}
-      </div>
-      <div>
-        <b>Passengers:</b> {cardDetail?.passengers}
-      </div>
-      <div>
-        <b>Cargo Capacity:</b> {cardDetail?.cargo_capacity}
-      </div>
-      <div>
-        <b>Consumables:</b> {cardDetail?.consumables}
-      </div>
-      <div>
-        <b>Vehicle Class:</b> {cardDetail?.vehicle_class}
-      </div>
-    </div>
+  const handleCloseClick = () => {
+    const path = generatePath('/');
+    navigate({
+      pathname: path,
+    });
+  };
+
+  const detailComponent = isLoading ? (
+    <Loader />
+  ) : (
+    <DetailCard
+      cardDetail={cardDetail as CardDetail}
+      onCloseClick={handleCloseClick}
+    />
   );
+  return <div className="details-container">{detailComponent}</div>;
 };
 
 export default Details;
