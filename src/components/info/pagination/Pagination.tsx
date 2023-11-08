@@ -1,3 +1,6 @@
+import ErrorTestButton from '../../errorBoundary/errorTestButton';
+import './Pagination.css';
+
 type Props = {
   page: string | null;
   limitParam: string | null;
@@ -29,10 +32,9 @@ const Pagination = ({
   // console.log('pagebtns', pageButtons);
   console.log(elementCount);
   return (
-    <div>
-      <h1></h1>
+    <div className="display-options">
       <label>
-        Items per page:
+        <span className="select-title">Items per page:</span>
         <select value={limit} onChange={handleItemsPerPageChange}>
           <option value={10}>10</option>
           <option value={20}>20</option>
@@ -46,13 +48,14 @@ const Pagination = ({
         }).map((_item, index) => (
           <button
             key={index}
-            className={page === String(index + 1) ? 'active' : ''}
+            className={page === String(index + 1) ? 'page-clicked' : 'page'}
             onClick={() => handleClick(index + 1)}
           >
             {index + 1}
           </button>
         ))}
       </div>
+      <ErrorTestButton>Error</ErrorTestButton>
     </div>
   );
 };

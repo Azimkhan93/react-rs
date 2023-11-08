@@ -4,7 +4,6 @@ import './Info.css';
 import { EmptyProps, UserData, UserDataResults } from '../../types/props.types';
 import Loader from './loader/Loader';
 import Search from './search/Search';
-import ErrorTestButton from '../errorBoundary/errorTestButton';
 import Pagination from './pagination/Pagination';
 import {
   useSearchParams,
@@ -149,7 +148,7 @@ const Info: React.FC<EmptyProps> = () => {
         onPageChange={handleSearchParams}
         onLimitChange={handleSearchParams}
       />
-      <ErrorTestButton>Error</ErrorTestButton>
+
       <div className="general-container">
         <div className="info-container">{infoComponents}</div>
         <Outlet />
