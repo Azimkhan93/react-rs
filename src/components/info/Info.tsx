@@ -1,16 +1,17 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Card from './card/Card';
 import './Info.css';
 import { EmptyProps, UserData, UserDataResults } from '../../types/props.types';
-import Loader from './loader/Loader';
 import Search from './search/Search';
 import Pagination from './pagination/Pagination';
 import {
   useSearchParams,
-  Outlet,
-  useNavigate,
-  generatePath,
+  // Route,
+  // createBrowserRouter,
+  // createRoutesFromElements,
+  // RouterProvider,
 } from 'react-router-dom';
+import CardList from './cardlist/CardList';
+// import Details from '../details/Details';
 
 const getInitSearchText = () => {
   return localStorage.getItem('searchKey') || '';
@@ -23,7 +24,6 @@ const Info: React.FC<EmptyProps> = () => {
   const [searchText, setSearchText] = useState(getInitSearchText());
   const [elementCount, setElementCount] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
 
   const limitParam = searchParams.get('limit');
   const pageParam = searchParams.get('page');
@@ -104,35 +104,6 @@ const Info: React.FC<EmptyProps> = () => {
     handleSearchParams('search', inputText);
   };
 
-  const handleCardClick = (id: string) => {
-    const path = generatePath('/:id', { id });
-    const entries = searchParams.entries();
-    const searchArray: string[] = [];
-    for (const entry of entries) {
-      searchArray.push(entry.join('='));
-    }
-    navigate({
-      pathname: path,
-      search: searchArray.join('&'),
-    });
-  };
-
-  const infoComponents = isLoading ? (
-    <Loader />
-  ) : userCards.length === 0 ? (
-    <h1>Nothing was found</h1>
-  ) : (
-    userCards.map((user, index) => (
-      <Card
-        onCardClick={() => handleCardClick(user.id)}
-        key={index}
-        name={user.name}
-        manufacturer={user.manufacturer}
-        vehicle_class={user.vehicle_class}
-      />
-    ))
-  );
-
   return (
     <div>
       <Search
@@ -148,11 +119,11 @@ const Info: React.FC<EmptyProps> = () => {
         onPageChange={handleSearchParams}
         onLimitChange={handleSearchParams}
       />
-
-      <div className="general-container">
-        <div className="info-container">{infoComponents}</div>
-        <Outlet />
-      </div>
+      <CardList
+        isLoading={isLoading}
+        userCards={userCards}
+        onSearchParams={searchParams}
+      />
     </div>
   );
 };

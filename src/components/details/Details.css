@@ -8,14 +8,14 @@
   background-color: #e7e8d1;
 }
 
-.details-subcontainer{
+.details-subcontainer {
   display: flex;
   position: relative;
   flex-direction: row;
   line-height: 2;
 }
 
-.close-btn-wrapper{
+.close-btn-wrapper {
   position: absolute;
   right: 20px;
 }
