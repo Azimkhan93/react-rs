@@ -1,6 +1,6 @@
 import React from 'react';
 import { Outlet, generatePath, useNavigate } from 'react-router-dom';
-import Card from '../card/Card';
+import Card from './card/Card';
 import Loader from '../loader/Loader';
 import { UserDataResults } from '../../../types/props.types';
 

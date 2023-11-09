@@ -1,27 +1,22 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import './Info.css';
 import { EmptyProps, UserData, UserDataResults } from '../../types/props.types';
 import Search from './search/Search';
 import Pagination from './pagination/Pagination';
-import {
-  useSearchParams,
-  // Route,
-  // createBrowserRouter,
-  // createRoutesFromElements,
-  // RouterProvider,
-} from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import CardList from './cardlist/CardList';
-// import Details from '../details/Details';
+import { SearchContext } from '../../App';
+import { SearchContextType } from '../../App';
 
 const getInitSearchText = () => {
   return localStorage.getItem('searchKey') || '';
 };
 
 const Info: React.FC<EmptyProps> = () => {
+  const searchValue = useContext<SearchContextType>(SearchContext);
   const [userCards, setUserCards] = useState([] as UserDataResults[]);
   const [isLoading, setIsLoading] = useState(false);
   const [inputText, setInputText] = useState(getInitSearchText());
-  const [searchText, setSearchText] = useState(getInitSearchText());
   const [elementCount, setElementCount] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -42,7 +37,7 @@ const Info: React.FC<EmptyProps> = () => {
         for (let apiPage: number = startPage; apiPage <= endPage; apiPage++) {
           promises.push(
             fetch(
-              `https://swapi.dev/api/vehicles/?page=${apiPage}&search=${searchText}`
+              `https://swapi.dev/api/vehicles/?page=${apiPage}&search=${searchValue.searchText}`
             )
               .then((response) => {
                 if (!response.ok) {
@@ -81,7 +76,7 @@ const Info: React.FC<EmptyProps> = () => {
     };
 
     fetchPages();
-  }, [limitParam, pageParam, searchText]);
+  }, [limitParam, pageParam, searchValue]);
 
   useEffect(() => {
     fetchData();
@@ -100,7 +95,7 @@ const Info: React.FC<EmptyProps> = () => {
   };
 
   const handleSearchClick = (): void => {
-    setSearchText(inputText);
+    searchValue.setSearchText(inputText);
     handleSearchParams('search', inputText);
   };
 
@@ -109,7 +104,6 @@ const Info: React.FC<EmptyProps> = () => {
       <Search
         onSearchChange={handleSearchChange}
         onSearchClick={handleSearchClick}
-        searchText={searchText}
         inputText={inputText}
       />
       <Pagination
