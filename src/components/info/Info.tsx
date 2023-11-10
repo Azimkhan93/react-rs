@@ -5,7 +5,12 @@ import Search from './search/Search';
 import Pagination from './pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import CardList from './cardlist/CardList';
-import { SearchContextType, SearchContext } from '../context/Context';
+import {
+  SearchContextType,
+  SearchContext,
+  UserContextType,
+  UserContext,
+} from '../context/Context';
 
 const getInitSearchText = () => {
   return localStorage.getItem('searchKey') || '';
@@ -13,7 +18,7 @@ const getInitSearchText = () => {
 
 const Info: React.FC<EmptyProps> = () => {
   const searchValue = useContext<SearchContextType>(SearchContext);
-  const [userCards, setUserCards] = useState([] as UserDataResults[]);
+  const { setUserData } = useContext<UserContextType>(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [inputText, setInputText] = useState(getInitSearchText());
   const [elementCount, setElementCount] = useState(1);
@@ -66,7 +71,7 @@ const Info: React.FC<EmptyProps> = () => {
             const id = splittedUrl[splittedUrl.length - 2];
             return { ...value, id };
           });
-        setUserCards(combinedResults);
+        setUserData(combinedResults);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -75,7 +80,7 @@ const Info: React.FC<EmptyProps> = () => {
     };
 
     fetchPages();
-  }, [limitParam, pageParam, searchValue]);
+  }, [limitParam, pageParam, searchValue.searchText, setUserData]);
 
   useEffect(() => {
     fetchData();
@@ -114,7 +119,7 @@ const Info: React.FC<EmptyProps> = () => {
       />
       <CardList
         isLoading={isLoading}
-        userCards={userCards}
+        // userData={userData}
         onSearchParams={searchParams}
       />
     </div>

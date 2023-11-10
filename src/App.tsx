@@ -1,7 +1,10 @@
 import {
   searchContextState,
   SearchContext,
+  userContextState,
+  UserContext,
 } from './components/context/Context';
+import { UserDataResults } from './types/props.types';
 import React, { useState } from 'react';
 import {
   Route,
@@ -17,13 +20,20 @@ const App: React.FC = () => {
   const [searchText, setSearchText] = useState<string>(
     searchContextState.searchText
   );
+
+  const [userData, setUserData] = useState<UserDataResults[]>(
+    userContextState.userData
+  );
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route
         path="/"
         element={
           <SearchContext.Provider value={{ searchText, setSearchText }}>
-            <Info />
+            <UserContext.Provider value={{ userData, setUserData }}>
+              <Info />
+            </UserContext.Provider>
           </SearchContext.Provider>
         }
       >

@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Outlet, generatePath, useNavigate } from 'react-router-dom';
 import Card from './card/Card';
 import Loader from '../loader/Loader';
-import { UserDataResults } from '../../../types/props.types';
+import { UserContext, UserContextType } from '../../context/Context';
 
 type Props = {
   isLoading: boolean;
-  userCards: UserDataResults[];
+  // userData: UserDataResults[];
   onSearchParams: URLSearchParams;
 };
 
-const CardList = ({ isLoading, userCards, onSearchParams }: Props) => {
+const CardList = ({ isLoading, onSearchParams }: Props) => {
   const navigate = useNavigate();
-
+  const userValue = useContext<UserContextType>(UserContext);
   const handleCardClick = (id: string) => {
     const path = generatePath('/:id', { id });
     const entries = onSearchParams.entries();
@@ -28,10 +28,10 @@ const CardList = ({ isLoading, userCards, onSearchParams }: Props) => {
 
   const infoComponents = isLoading ? (
     <Loader />
-  ) : userCards.length === 0 ? (
+  ) : userValue.userData.length === 0 ? (
     <h1>Nothing was found</h1>
   ) : (
-    userCards.map((user, index) => (
+    userValue.userData.map((user, index) => (
       <Card
         onCardClick={() => handleCardClick(user.id)}
         key={index}
