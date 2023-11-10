@@ -5,8 +5,7 @@ import Search from './search/Search';
 import Pagination from './pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import CardList from './cardlist/CardList';
-import { SearchContext } from '../../App';
-import { SearchContextType } from '../../App';
+import { SearchContextType, SearchContext } from '../context/Context';
 
 const getInitSearchText = () => {
   return localStorage.getItem('searchKey') || '';

@@ -1,27 +1,17 @@
-// import { useState } from 'react';
-import React, { useState, createContext } from 'react';
-import Info from './components/info/Info';
-import './App.css';
+import {
+  searchContextState,
+  SearchContext,
+} from './components/context/Context';
+import React, { useState } from 'react';
 import {
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
+import Info from './components/info/Info';
 import Details from './components/details/Details';
-
-export type SearchContextType = {
-  searchText: string;
-  setSearchText: React.Dispatch<React.SetStateAction<string>>;
-};
-
-const searchContextState = {
-  searchText: localStorage.getItem('searchKey') || '',
-  setSearchText: () => '',
-};
-
-export const SearchContext =
-  createContext<SearchContextType>(searchContextState);
+import './App.css';
 
 const App: React.FC = () => {
   const [searchText, setSearchText] = useState<string>(

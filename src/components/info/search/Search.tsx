@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useContext } from 'react';
 import './search.css';
-import { SearchContext, SearchContextType } from '../../../App';
+import { SearchContextType, SearchContext } from '../../context/Context';
 
 interface InputCaptureProps {
   onSearchChange: (text: string) => void;
