@@ -55,8 +55,10 @@ describe('Search component', () => {
     const input = screen.getByPlaceholderText(
       'Search by name'
     ) as HTMLInputElement;
+
     expect(input.value).toBe(inputText);
     fireEvent.change(input, { target: { value: 'New Value' } });
+
     expect(onSearchChangeMock).toHaveBeenCalledWith('New Value');
   });
 });

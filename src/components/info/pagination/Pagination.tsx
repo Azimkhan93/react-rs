@@ -1,5 +1,6 @@
 import ErrorTestButton from '../../errorBoundary/errorTestButton';
 import './Pagination.css';
+import React from 'react';
 
 type Props = {
   page: string | null;
@@ -20,7 +21,6 @@ const Pagination = ({
   const handleItemsPerPageChange = (e: { target: { value: string } }) => {
     const selectedItemsPerPage = Number(e.target.value);
     console.log(selectedItemsPerPage);
-    // setLimit(selectedItemsPerPage);
     onLimitChange('limit', selectedItemsPerPage.toString());
     onPageChange('page', '1');
   };
@@ -47,6 +47,7 @@ const Pagination = ({
           length: Math.ceil(elementCount / limit),
         }).map((_item, index) => (
           <button
+            data-testid={`page-button-${index + 1}`}
             key={index}
             className={page === String(index + 1) ? 'page-clicked' : 'page'}
             onClick={() => handleClick(index + 1)}
