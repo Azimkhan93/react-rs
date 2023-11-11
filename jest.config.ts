@@ -194,6 +194,9 @@ const config: Config = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+  moduleNameMapper: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+  },
 };
 
 export default config;
