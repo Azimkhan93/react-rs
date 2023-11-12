@@ -65,7 +65,11 @@ const DetailCard = ({ cardDetail, onCloseClick }: Props) => {
         </div>
       </div>
       <div className="close-btn-wrapper">
-        <button className="close-btn" onClick={onCloseClick}>
+        <button
+          className="close-btn"
+          data-testid="close-button"
+          onClick={onCloseClick}
+        >
           Close
         </button>
       </div>

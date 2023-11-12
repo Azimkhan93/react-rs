@@ -25,7 +25,7 @@ const Details = () => {
 
   const fetchDetail = useCallback(() => {
     setIsLoading(true);
-    console.log(params.id);
+    // console.log(params.id);
 
     fetch(`https://swapi.dev/api/vehicles/${params.id}`)
       .then((response) => {
@@ -36,7 +36,7 @@ const Details = () => {
         return response.json();
       })
       .then((data: CardDetail) => {
-        console.log(data);
+        // console.log(data);
         setCardDetail(data);
         setIsLoading(false);
         return data;

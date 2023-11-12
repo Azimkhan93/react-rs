@@ -117,11 +117,7 @@ const Info: React.FC<EmptyProps> = () => {
         onPageChange={handleSearchParams}
         onLimitChange={handleSearchParams}
       />
-      <CardList
-        isLoading={isLoading}
-        // userData={userData}
-        onSearchParams={searchParams}
-      />
+      <CardList isLoading={isLoading} onSearchParams={searchParams} />
     </div>
   );
 };

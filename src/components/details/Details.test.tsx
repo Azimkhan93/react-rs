@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mswServer } from '../../test/msw-server';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Details from './Details';
@@ -24,7 +24,7 @@ describe('Detailed Card Component', () => {
     expect(screen.getByTestId('detail-card')).toBeInTheDocument();
   });
 
-  test('displays loading indicator while fetching data', async () => {
+  test('correctly displays the detailed card data', async () => {
     render(
       <MemoryRouter initialEntries={['/4']}>
         <Routes>
@@ -60,5 +60,20 @@ describe('Detailed Card Component', () => {
     expect(screen.getByTestId('detail-card-vehicle_class')).toHaveTextContent(
       'wheeled'
     );
+  });
+
+  test('hides component on clicking close button', async () => {
+    render(
+      <MemoryRouter initialEntries={['/4']}>
+        <Routes>
+          <Route path="/:id" element={<Details />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    expect(screen.getByTestId('loader')).toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByTestId('loader')).toBeNull());
+    fireEvent.click(screen.getByTestId('close-button'));
+    await waitFor(() => expect(screen.queryByTestId('detail-card')).toBeNull());
   });
 });
