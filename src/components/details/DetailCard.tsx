@@ -9,7 +9,7 @@ const DetailCard = ({ cardDetail, onCloseClick }: Props) => {
   return (
     <div className="details-subcontainer">
       <div className="detail-wrapper">
-        <div>
+        <div data-testid="detail-card">
           <b>Name:</b> {cardDetail?.name}
         </div>
         <div>
