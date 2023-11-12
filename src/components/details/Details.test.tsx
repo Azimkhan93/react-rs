@@ -9,21 +9,56 @@ beforeAll(() => mswServer.listen());
 afterEach(() => mswServer.resetHandlers());
 afterAll(() => mswServer.close());
 
-test('displays loading indicator while fetching data', async () => {
-  render(
-    <MemoryRouter initialEntries={['/4']}>
-      <Routes>
-        <Route path="/:id" element={<Details />} />
-      </Routes>
-    </MemoryRouter>
-  );
+describe('Detailed Card Component', () => {
+  test('displays loading indicator while fetching data', async () => {
+    render(
+      <MemoryRouter initialEntries={['/4']}>
+        <Routes>
+          <Route path="/:id" element={<Details />} />
+        </Routes>
+      </MemoryRouter>
+    );
 
-  // Ensure that the loading indicator is initially displayed
-  expect(screen.getByTestId('loader')).toBeInTheDocument();
-  await waitFor(() => expect(screen.queryByTestId('loader')).toBeNull());
-  // Ensure that the loading indicator is no longer displayed
-  expect(screen.getByTestId('detail-card')).toBeInTheDocument();
+    expect(screen.getByTestId('loader')).toBeInTheDocument();
+    await waitFor(() => expect(screen.queryByTestId('loader')).toBeNull());
+    expect(screen.getByTestId('detail-card')).toBeInTheDocument();
+  });
 
-  // Continue with your assertions for the loaded data
-  // For example, you can assert that specific elements are rendered with the fetched data
+  test('displays loading indicator while fetching data', async () => {
+    render(
+      <MemoryRouter initialEntries={['/4']}>
+        <Routes>
+          <Route path="/:id" element={<Details />} />
+        </Routes>
+      </MemoryRouter>
+    );
+
+    await waitFor(() => expect(screen.queryByTestId('loader')).toBeNull());
+    expect(screen.getByTestId('detail-card-name')).toHaveTextContent(
+      'Sand Crawler'
+    );
+    expect(screen.getByTestId('detail-card-model')).toHaveTextContent(
+      'Digger Crawler'
+    );
+    expect(screen.getByTestId('detail-card-manufacturer')).toHaveTextContent(
+      'Corellia Mining Corporation'
+    );
+    expect(screen.getByTestId('detail-card-cost')).toHaveTextContent('150000');
+    expect(
+      screen.getByTestId('detail-card-max_atmosphering_speed')
+    ).toHaveTextContent('30');
+    expect(screen.getByTestId('detail-card-crew')).toHaveTextContent('46');
+    expect(screen.getByTestId('detail-card-passengers')).toHaveTextContent(
+      '30'
+    );
+    expect(screen.getByTestId('detail-card-cargo_capacity')).toHaveTextContent(
+      '50000'
+    );
+    expect(screen.getByTestId('detail-card-consumables')).toHaveTextContent(
+      '2 months'
+    );
+    expect(screen.getByTestId('detail-card-vehicle_class')).toHaveTextContent(
+      'wheeled'
+    );
+  });
 });
