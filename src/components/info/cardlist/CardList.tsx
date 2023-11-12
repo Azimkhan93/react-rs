@@ -6,7 +6,6 @@ import { UserContext, UserContextType } from '../../context/Context';
 
 type Props = {
   isLoading: boolean;
-  // userData: UserDataResults[];
   onSearchParams: URLSearchParams;
 };
 

@@ -67,7 +67,6 @@ const Info: React.FC<EmptyProps> = () => {
           .flat()
           .map((value) => {
             const splittedUrl = value.url.split('/');
-            console.log('value', value);
             const id = splittedUrl[splittedUrl.length - 2];
             return { ...value, id };
           });

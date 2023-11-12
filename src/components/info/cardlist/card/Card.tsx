@@ -11,7 +11,7 @@ type Props = {
 
 const Card = ({ onCardClick, name, manufacturer, vehicle_class }: Props) => {
   return (
-    <div onClick={onCardClick} className="card">
+    <div onClick={onCardClick} className="card" data-testid="card">
       <TextCard
         name={name}
         manufacturer={manufacturer}

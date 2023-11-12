@@ -20,7 +20,6 @@ const Pagination = ({
   const limit = Number(limitParam) || initialLimit;
   const handleItemsPerPageChange = (e: { target: { value: string } }) => {
     const selectedItemsPerPage = Number(e.target.value);
-    console.log(selectedItemsPerPage);
     onLimitChange('limit', selectedItemsPerPage.toString());
     onPageChange('page', '1');
   };
@@ -29,8 +28,6 @@ const Pagination = ({
     onPageChange('page', page.toString());
   };
 
-  // console.log('pagebtns', pageButtons);
-  console.log(elementCount);
   return (
     <div className="display-options">
       <label>

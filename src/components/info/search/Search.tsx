@@ -15,7 +15,6 @@ const Search = ({
 }: InputCaptureProps) => {
   const searchValue = useContext<SearchContextType>(SearchContext);
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    console.log('event-target-value', event.target.value);
     onSearchChange(event.target.value);
   };
 
