@@ -5,25 +5,23 @@ import Search from './search/Search';
 import Pagination from './pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
 import CardList from './cardlist/CardList';
-import {
-  SearchContextType,
-  SearchContext,
-  UserContextType,
-  UserContext,
-} from '../context/Context';
+import { UserContextType, UserContext } from '../context/Context';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchText } from '../../store/searchSlice';
+import { AppDispatch, RootState } from '../../store/store';
 
 const getInitSearchText = () => {
   return localStorage.getItem('searchKey') || '';
 };
 
 const Info: React.FC<EmptyProps> = () => {
-  const searchValue = useContext<SearchContextType>(SearchContext);
+  const dispatch: AppDispatch = useDispatch();
+  const searchText = useSelector((state: RootState) => state.search.searchText);
   const { setUserData } = useContext<UserContextType>(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [inputText, setInputText] = useState(getInitSearchText());
   const [elementCount, setElementCount] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
-
   const limitParam = searchParams.get('limit');
   const pageParam = searchParams.get('page');
 
@@ -41,7 +39,7 @@ const Info: React.FC<EmptyProps> = () => {
         for (let apiPage: number = startPage; apiPage <= endPage; apiPage++) {
           promises.push(
             fetch(
-              `https://swapi.dev/api/vehicles/?page=${apiPage}&search=${searchValue.searchText}`
+              `https://swapi.dev/api/vehicles/?page=${apiPage}&search=${searchText}`
             )
               .then((response) => {
                 if (!response.ok) {
@@ -79,7 +77,7 @@ const Info: React.FC<EmptyProps> = () => {
     };
 
     fetchPages();
-  }, [limitParam, pageParam, searchValue.searchText, setUserData]);
+  }, [limitParam, pageParam, searchText, setUserData]);
 
   useEffect(() => {
     fetchData();
@@ -98,7 +96,7 @@ const Info: React.FC<EmptyProps> = () => {
   };
 
   const handleSearchClick = (): void => {
-    searchValue.setSearchText(inputText);
+    dispatch(setSearchText(inputText));
     handleSearchParams('search', inputText);
   };
 

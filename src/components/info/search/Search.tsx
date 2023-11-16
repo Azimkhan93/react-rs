@@ -1,6 +1,7 @@
-import React, { ChangeEvent, useContext } from 'react';
+import React, { ChangeEvent } from 'react';
 import './search.css';
-import { SearchContextType, SearchContext } from '../../context/Context';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 
 interface InputCaptureProps {
   onSearchChange: (text: string) => void;
@@ -13,13 +14,14 @@ const Search = ({
   onSearchClick,
   inputText,
 }: InputCaptureProps) => {
-  const searchValue = useContext<SearchContextType>(SearchContext);
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     onSearchChange(event.target.value);
   };
-
+  const searchText: string = useSelector(
+    (state: RootState) => state.search.searchText
+  );
   const handleButtonClick = (): void => {
-    onSearchClick(searchValue.searchText);
+    onSearchClick(searchText);
     localStorage.setItem('searchKey', inputText);
   };
 
