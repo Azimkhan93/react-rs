@@ -1,8 +1,8 @@
 import React from 'react';
-import { CardDetail } from './Details';
+import { UserDataResults } from '../../types/props.types';
 
 type Props = {
-  cardDetail: CardDetail;
+  cardDetail: UserDataResults;
   onCloseClick: () => void;
 };
 const DetailCard = ({ cardDetail, onCloseClick }: Props) => {
@@ -10,57 +10,41 @@ const DetailCard = ({ cardDetail, onCloseClick }: Props) => {
     <div className="details-subcontainer">
       <div className="detail-wrapper">
         <div data-testid="detail-card">
-          <b>Name:</b>{' '}
-          <span data-testid="detail-card-name">{cardDetail?.name}</span>
+          <b>Brand:</b>{' '}
+          <span data-testid="detail-card-name">{cardDetail?.brand}</span>
         </div>
         <div>
-          <b>Model:</b>{' '}
-          <span data-testid="detail-card-model">{cardDetail?.model}</span>
+          <b>Title:</b>{' '}
+          <span data-testid="detail-card-model">{cardDetail?.title}</span>
         </div>
         <div>
-          <b>Manufacturer:</b>{' '}
+          <b>Category:</b>{' '}
           <span data-testid="detail-card-manufacturer">
-            {cardDetail?.manufacturer}
+            {cardDetail?.category}
           </span>
         </div>
         <div>
-          <b>Cost:</b>{' '}
-          <span data-testid="detail-card-cost">
-            {cardDetail?.cost_in_credits}
-          </span>
+          <b>Price:</b>{' '}
+          <span data-testid="detail-card-cost">{cardDetail?.price}</span>
         </div>
         <div>
-          <b>Max Atmosphering speed:</b>{' '}
+          <b>Discount percentage:</b>{' '}
           <span data-testid="detail-card-max_atmosphering_speed">
-            {cardDetail?.max_atmosphering_speed}
+            {cardDetail?.discountPercentage} %
           </span>
         </div>
         <div>
-          <b>Crew:</b>{' '}
-          <span data-testid="detail-card-crew">{cardDetail?.crew}</span>
+          <b>Stock:</b>{' '}
+          <span data-testid="detail-card-crew">{cardDetail?.stock}</span>
         </div>
         <div>
-          <b>Passengers:</b>{' '}
-          <span data-testid="detail-card-passengers">
-            {cardDetail?.passengers}
-          </span>
+          <b>Rating:</b>{' '}
+          <span data-testid="detail-card-passengers">{cardDetail?.rating}</span>
         </div>
         <div>
-          <b>Cargo Capacity:</b>{' '}
-          <span data-testid="detail-card-cargo_capacity">
-            {cardDetail?.cargo_capacity}
-          </span>
-        </div>
-        <div>
-          <b>Consumables:</b>{' '}
-          <span data-testid="detail-card-consumables">
-            {cardDetail?.consumables}
-          </span>
-        </div>
-        <div>
-          <b>Vehicle Class:</b>{' '}
+          <b>Description:</b>{' '}
           <span data-testid="detail-card-vehicle_class">
-            {cardDetail?.vehicle_class}
+            {cardDetail?.description}
           </span>
         </div>
       </div>

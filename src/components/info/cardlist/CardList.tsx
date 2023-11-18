@@ -32,11 +32,11 @@ const CardList = ({ isLoading, onSearchParams }: Props) => {
   ) : (
     userValue.userData.map((user, index) => (
       <Card
-        onCardClick={() => handleCardClick(user.id)}
+        onCardClick={() => handleCardClick(String(user.id))}
         key={index}
-        name={user.name}
-        manufacturer={user.manufacturer}
-        vehicle_class={user.vehicle_class}
+        brand={user.brand}
+        title={user.title}
+        category={user.category}
       />
     ))
   );

@@ -23,7 +23,8 @@ const Pagination = ({
     onLimitChange('limit', selectedItemsPerPage.toString());
     onPageChange('page', '1');
   };
-
+  console.log('elementcount', elementCount);
+  console.log('limit', limit);
   const handleClick = (page: number) => {
     onPageChange('page', page.toString());
   };

@@ -3,30 +3,18 @@ import { useParams, useNavigate, generatePath } from 'react-router-dom';
 import './Details.css';
 import Loader from '../info/loader/Loader';
 import DetailCard from './DetailCard';
+import { UserDataResults } from '../../types/props.types';
 
-export type CardDetail = {
-  name: string;
-  model: string;
-  manufacturer: string;
-  cost_in_credits: string;
-  length: string;
-  max_atmosphering_speed: string;
-  crew: string;
-  passengers: string;
-  cargo_capacity: string;
-  consumables: string;
-  vehicle_class: string;
-};
 const Details = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [cardDetail, setCardDetail] = useState<CardDetail>();
+  const [cardDetail, setCardDetail] = useState<UserDataResults>();
   const params = useParams<{ id: string }>();
 
   const fetchDetail = useCallback(() => {
     setIsLoading(true);
 
-    fetch(`https://swapi.dev/api/vehicles/${params.id}`)
+    fetch(`https://dummyjson.com/products/${params.id}`)
       .then((response) => {
         if (!response.ok) {
           throw Error(`Status = ${response.status}`);
@@ -34,7 +22,8 @@ const Details = () => {
 
         return response.json();
       })
-      .then((data: CardDetail) => {
+      .then((data: UserDataResults) => {
+        console.log('paramsid', data);
         setCardDetail(data);
         setIsLoading(false);
         return data;
@@ -56,7 +45,7 @@ const Details = () => {
     <Loader />
   ) : (
     <DetailCard
-      cardDetail={cardDetail as CardDetail}
+      cardDetail={cardDetail as UserDataResults}
       onCloseClick={handleCloseClick}
     />
   );

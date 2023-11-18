@@ -4,19 +4,15 @@ import './Card.css';
 
 type Props = {
   onCardClick: MouseEventHandler<HTMLDivElement>;
-  name: string;
-  manufacturer: string;
-  vehicle_class: string;
+  brand: string;
+  title: string;
+  category: string;
 };
 
-const Card = ({ onCardClick, name, manufacturer, vehicle_class }: Props) => {
+const Card = ({ onCardClick, brand, title, category }: Props) => {
   return (
     <div onClick={onCardClick} className="card" data-testid="card">
-      <TextCard
-        name={name}
-        manufacturer={manufacturer}
-        vehicle_class={vehicle_class}
-      />
+      <TextCard brand={brand} title={title} category={category} />
     </div>
   );
 };

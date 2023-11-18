@@ -1,17 +1,20 @@
 export type EmptyProps = Record<string, never>;
 
 export type UserDataResults = {
-  id: string;
-  name: string;
-  manufacturer: string;
-  vehicle_class: string;
-  url: string;
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
 };
 
 export type UserData = {
-  count: number;
-  previous: string | null;
-  next: string | null;
   results: UserDataResults[];
 };
 

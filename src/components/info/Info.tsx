@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import './Info.css';
-import { EmptyProps, UserData, UserDataResults } from '../../types/props.types';
+import { EmptyProps, UserDataResults } from '../../types/props.types';
 import Search from './search/Search';
 import Pagination from './pagination/Pagination';
 import { useSearchParams } from 'react-router-dom';
@@ -20,7 +20,7 @@ const Info: React.FC<EmptyProps> = () => {
   const { setUserData } = useContext<UserContextType>(UserContext);
   const [isLoading, setIsLoading] = useState(false);
   const [inputText, setInputText] = useState(getInitSearchText());
-  const [elementCount, setElementCount] = useState(1);
+  const [elementCount, setElementCount] = useState(100);
   const [searchParams, setSearchParams] = useSearchParams();
   const limitParam = searchParams.get('limit');
   const pageParam = searchParams.get('page');
@@ -32,42 +32,35 @@ const Info: React.FC<EmptyProps> = () => {
       try {
         const page = Number(pageParam) || 1;
         const limit = Number(limitParam) || 10;
-        const startPage = ((page - 1) * limit) / 10 + 1;
-        const endPage = (limit / 10) * page;
-
+        const skip = page * limit - limit;
+        console.log('page', page);
         const promises = [];
-        for (let apiPage: number = startPage; apiPage <= endPage; apiPage++) {
-          promises.push(
-            fetch(
-              `https://swapi.dev/api/vehicles/?page=${apiPage}&search=${searchText}`
-            )
-              .then((response) => {
-                if (!response.ok) {
-                  throw Error(`Status = ${response.status}`);
-                }
+        promises.push(
+          fetch(
+            `https://dummyjson.com/products/search?q=${searchText}&limit=${limit}&skip=${skip}`
+          )
+            .then((response) => {
+              if (!response.ok) {
+                throw Error(`Status = ${response.status}`);
+              }
 
-                return response.json();
-              })
-              .then((data: UserData) => {
-                setElementCount(data.count);
-                return data.results;
-              })
-          );
-        }
-
+              return response.json();
+            })
+            .then((data) => {
+              setElementCount(100);
+              console.log('data.products search', data.products.length);
+              return data.products;
+            })
+        );
         const results = await Promise.allSettled(promises);
+        console.log(results);
         const combinedResults = results
           .filter((result) => result.status === 'fulfilled')
           .map(
             (result) =>
               (result as PromiseFulfilledResult<UserDataResults[]>).value
-          )
-          .flat()
-          .map((value) => {
-            const splittedUrl = value.url.split('/');
-            const id = splittedUrl[splittedUrl.length - 2];
-            return { ...value, id };
-          });
+          )[0];
+
         setUserData(combinedResults);
         setIsLoading(false);
       } catch (error) {
@@ -98,6 +91,7 @@ const Info: React.FC<EmptyProps> = () => {
   const handleSearchClick = (): void => {
     dispatch(setSearchText(inputText));
     handleSearchParams('search', inputText);
+    handleSearchParams('page', '1');
   };
 
   return (

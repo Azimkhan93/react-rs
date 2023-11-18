@@ -2,27 +2,27 @@ import React from 'react';
 import './TextCard.css';
 
 type Props = {
-  name: string;
-  manufacturer: string;
-  vehicle_class: string;
+  brand: string;
+  title: string;
+  category: string;
 };
-const TextCard = ({ name, manufacturer, vehicle_class }: Props) => {
+const TextCard = ({ brand, title, category }: Props) => {
   return (
     <div className="textcard">
       <span>
-        <b>Name: </b>
+        <b>Title: </b>
       </span>
-      {name}
+      {title}
       <br />
       <span>
-        <b>Manufacturer: </b>
+        <b>Brand: </b>
       </span>
-      {manufacturer}
+      {brand}
       <br />
       <span>
-        <b>Vehicle Class: </b>
+        <b>Category: </b>
       </span>
-      {vehicle_class}
+      {category}
     </div>
   );
 };
