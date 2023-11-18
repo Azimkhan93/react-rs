@@ -1,17 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Outlet, generatePath, useNavigate } from 'react-router-dom';
 import Card from './card/Card';
-import Loader from '../loader/Loader';
-import { UserContext, UserContextType } from '../../context/Context';
-
+import { UserDataResults } from '../../../types/props.types';
 type Props = {
-  isLoading: boolean;
   onSearchParams: URLSearchParams;
+  products: UserDataResults[];
 };
 
-const CardList = ({ isLoading, onSearchParams }: Props) => {
+const CardList = ({ onSearchParams, products }: Props) => {
   const navigate = useNavigate();
-  const userValue = useContext<UserContextType>(UserContext);
+
   const handleCardClick = (id: string) => {
     const path = generatePath('/:id', { id });
     const entries = onSearchParams.entries();
@@ -24,22 +22,22 @@ const CardList = ({ isLoading, onSearchParams }: Props) => {
       search: searchArray.join('&'),
     });
   };
-
-  const infoComponents = isLoading ? (
-    <Loader />
-  ) : userValue.userData.length === 0 ? (
-    <h1>Nothing was found</h1>
-  ) : (
-    userValue.userData.map((user, index) => (
-      <Card
-        onCardClick={() => handleCardClick(String(user.id))}
-        key={index}
-        brand={user.brand}
-        title={user.title}
-        category={user.category}
-      />
-    ))
-  );
+  const infoComponents =
+    products.length === 0 ? (
+      <h1>Nothing was found</h1>
+    ) : (
+      products.map(
+        (user: UserDataResults, index: React.Key | null | undefined) => (
+          <Card
+            onCardClick={() => handleCardClick(String(user.id))}
+            key={index}
+            brand={user.brand}
+            title={user.title}
+            category={user.category}
+          />
+        )
+      )
+    );
 
   return (
     <div>

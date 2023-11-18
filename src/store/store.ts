@@ -1,11 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchSlice from './searchSlice';
-// import { vehiclesApi } from './vehicleApi';
+import { productsApi } from './productsApi';
 
 export const store = configureStore({
   reducer: {
     search: searchSlice,
+    [productsApi.reducerPath]: productsApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(productsApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

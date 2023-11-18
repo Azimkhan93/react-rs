@@ -23,7 +23,6 @@ const Details = () => {
         return response.json();
       })
       .then((data: UserDataResults) => {
-        console.log('paramsid', data);
         setCardDetail(data);
         setIsLoading(false);
         return data;
