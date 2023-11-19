@@ -13,6 +13,7 @@ const Details = () => {
   const { data, error, isLoading } = useFetchProductByIdQuery(
     params.id as string
   );
+  console.log('myIsLoading', isLoading);
   console.log(data);
 
   const handleCloseClick = () => {

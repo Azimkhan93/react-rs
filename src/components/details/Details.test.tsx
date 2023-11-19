@@ -1,9 +1,10 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { mswServer } from '../../test/msw-server';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { mswServer } from '../../test-helpers/msw-server';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import Details from './Details';
+import { renderWithProviders } from '../../test-helpers/utils/test-utils';
 
 beforeAll(() => mswServer.listen());
 afterEach(() => mswServer.resetHandlers());
@@ -11,8 +12,8 @@ afterAll(() => mswServer.close());
 
 describe('Detailed Card Component', () => {
   test('displays loading indicator while fetching data', async () => {
-    render(
-      <MemoryRouter initialEntries={['/4']}>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/1']}>
         <Routes>
           <Route path="/:id" element={<Details />} />
         </Routes>
@@ -20,13 +21,15 @@ describe('Detailed Card Component', () => {
     );
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();
-    await waitFor(() => expect(screen.queryByTestId('loader')).toBeNull());
+    await waitFor(() =>
+      expect(screen.getByTestId('detail-card')).toBeInTheDocument()
+    );
     expect(screen.getByTestId('detail-card')).toBeInTheDocument();
   });
 
   test('correctly displays the detailed card data', async () => {
-    render(
-      <MemoryRouter initialEntries={['/4']}>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/1']}>
         <Routes>
           <Route path="/:id" element={<Details />} />
         </Routes>
@@ -34,37 +37,27 @@ describe('Detailed Card Component', () => {
     );
 
     await waitFor(() => expect(screen.queryByTestId('loader')).toBeNull());
-    expect(screen.getByTestId('detail-card-name')).toHaveTextContent(
-      'Sand Crawler'
+    expect(screen.getByTestId('detail-card-title')).toHaveTextContent(
+      'iPhone 9'
     );
-    expect(screen.getByTestId('detail-card-model')).toHaveTextContent(
-      'Digger Crawler'
+    expect(screen.getByTestId('detail-card-brand')).toHaveTextContent('Apple');
+    expect(screen.getByTestId('detail-card-category')).toHaveTextContent(
+      'smartphones'
     );
-    expect(screen.getByTestId('detail-card-manufacturer')).toHaveTextContent(
-      'Corellia Mining Corporation'
-    );
-    expect(screen.getByTestId('detail-card-cost')).toHaveTextContent('150000');
+    expect(screen.getByTestId('detail-card-price')).toHaveTextContent('549');
     expect(
-      screen.getByTestId('detail-card-max_atmosphering_speed')
-    ).toHaveTextContent('30');
-    expect(screen.getByTestId('detail-card-crew')).toHaveTextContent('46');
-    expect(screen.getByTestId('detail-card-passengers')).toHaveTextContent(
-      '30'
-    );
-    expect(screen.getByTestId('detail-card-cargo_capacity')).toHaveTextContent(
-      '50000'
-    );
-    expect(screen.getByTestId('detail-card-consumables')).toHaveTextContent(
-      '2 months'
-    );
-    expect(screen.getByTestId('detail-card-vehicle_class')).toHaveTextContent(
-      'wheeled'
+      screen.getByTestId('detail-card-discount_percentage')
+    ).toHaveTextContent('12.96');
+    expect(screen.getByTestId('detail-card-stock')).toHaveTextContent('94');
+    expect(screen.getByTestId('detail-card-rating')).toHaveTextContent('4.69');
+    expect(screen.getByTestId('detail-card-desciption')).toHaveTextContent(
+      'An apple mobile which is nothing like apple'
     );
   });
 
   test('hides component on clicking close button', async () => {
-    render(
-      <MemoryRouter initialEntries={['/4']}>
+    renderWithProviders(
+      <MemoryRouter initialEntries={['/1']}>
         <Routes>
           <Route path="/:id" element={<Details />} />
         </Routes>

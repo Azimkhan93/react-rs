@@ -1,6 +1,7 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import Pagination from './Pagination';
+import { renderWithProviders } from '../../../test-helpers/utils/test-utils';
 
 describe('Pagination Component', () => {
   test('updates URL query parameter when page changes', () => {
@@ -8,30 +9,17 @@ describe('Pagination Component', () => {
     const mockOnPageChange = jest.fn();
     const mockOnLimitChange = jest.fn();
 
-    const renderPagination = (props: {
-      page: string | null;
-      limitParam: string | null;
-      elementCount: number;
-    }) => {
-      // Act
-      return render(
-        <Pagination
-          page={props.page}
-          limitParam={props.limitParam}
-          elementCount={props.elementCount}
-          onPageChange={mockOnPageChange}
-          onLimitChange={mockOnLimitChange}
-        />
-      );
-    };
+    renderWithProviders(
+      <Pagination
+        page="1"
+        onPageChange={mockOnPageChange}
+        onLimitChange={mockOnLimitChange}
+        elementCount={30}
+      />
+    );
 
     //Assert
-    const { getByTestId } = renderPagination({
-      page: '1',
-      limitParam: '10',
-      elementCount: 39,
-    });
-    fireEvent.click(getByTestId('page-button-2'));
+    fireEvent.click(screen.getByTestId('page-button-2'));
     expect(mockOnPageChange).toHaveBeenCalledWith('page', '2');
   });
 });

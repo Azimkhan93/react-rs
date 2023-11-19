@@ -3,6 +3,7 @@ import ErrorTestButton from '../../errorBoundary/errorTestButton';
 import './Pagination.css';
 import { AppDispatch, RootState } from '../../../store/store';
 import { setItemsPerPage } from '../../../store/itemsPerPageSlice';
+import React from 'react';
 
 type Props = {
   page: string | null;
@@ -35,7 +36,11 @@ const Pagination = ({
     <div className="display-options">
       <label>
         <span className="select-title">Items per page:</span>
-        <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
+        <select
+          data-testid="limit-selector"
+          value={itemsPerPage}
+          onChange={handleItemsPerPageChange}
+        >
           <option value={10}>10</option>
           <option value={20}>20</option>
           <option value={30}>30</option>

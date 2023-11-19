@@ -125,25 +125,7 @@
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L63'></a><a href='#L63'>63</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,25 +133,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,68 +188,50 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { CardDetail } from './Details';
+import { UserDataResults } from '../../types/props.types';
 &nbsp;
 type Props = {
-  cardDetail: CardDetail;
+  cardDetail: UserDataResults;
   onCloseClick: () =&gt; void;
 };
 const DetailCard = ({ cardDetail, onCloseClick }: Props) =&gt; {
   return (
     &lt;div className="details-subcontainer"&gt;
       &lt;div className="detail-wrapper"&gt;
+        &lt;div&gt;
+          &lt;b&gt;Title:&lt;/b&gt;{' '}
+          &lt;span data-testid="detail-card-title"&gt;{cardDetail?.title}&lt;/span&gt;
+        &lt;/div&gt;
         &lt;div data-testid="detail-card"&gt;
-          &lt;b&gt;Name:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-name"&gt;{cardDetail?.name}&lt;/span&gt;
+          &lt;b&gt;Brand:&lt;/b&gt;{' '}
+          &lt;span data-testid="detail-card-brand"&gt;{cardDetail?.brand}&lt;/span&gt;
         &lt;/div&gt;
         &lt;div&gt;
-          &lt;b&gt;Model:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-model"&gt;{cardDetail?.model}&lt;/span&gt;
+          &lt;b&gt;Category:&lt;/b&gt;{' '}
+          &lt;span data-testid="detail-card-category"&gt;{cardDetail?.category}&lt;/span&gt;
         &lt;/div&gt;
         &lt;div&gt;
-          &lt;b&gt;Manufacturer:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-manufacturer"&gt;
-            {cardDetail?.manufacturer}
+          &lt;b&gt;Price:&lt;/b&gt;{' '}
+          &lt;span data-testid="detail-card-price"&gt;{cardDetail?.price}&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;b&gt;Discount percentage:&lt;/b&gt;{' '}
+          &lt;span data-testid="detail-card-discount_percentage"&gt;
+            {cardDetail?.discountPercentage} %
           &lt;/span&gt;
         &lt;/div&gt;
         &lt;div&gt;
-          &lt;b&gt;Cost:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-cost"&gt;
-            {cardDetail?.cost_in_credits}
-          &lt;/span&gt;
+          &lt;b&gt;Stock:&lt;/b&gt;{' '}
+          &lt;span data-testid="detail-card-stock"&gt;{cardDetail?.stock}&lt;/span&gt;
         &lt;/div&gt;
         &lt;div&gt;
-          &lt;b&gt;Max Atmosphering speed:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-max_atmosphering_speed"&gt;
-            {cardDetail?.max_atmosphering_speed}
-          &lt;/span&gt;
+          &lt;b&gt;Rating:&lt;/b&gt;{' '}
+          &lt;span data-testid="detail-card-rating"&gt;{cardDetail?.rating}&lt;/span&gt;
         &lt;/div&gt;
         &lt;div&gt;
-          &lt;b&gt;Crew:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-crew"&gt;{cardDetail?.crew}&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div&gt;
-          &lt;b&gt;Passengers:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-passengers"&gt;
-            {cardDetail?.passengers}
-          &lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div&gt;
-          &lt;b&gt;Cargo Capacity:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-cargo_capacity"&gt;
-            {cardDetail?.cargo_capacity}
-          &lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div&gt;
-          &lt;b&gt;Consumables:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-consumables"&gt;
-            {cardDetail?.consumables}
-          &lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div&gt;
-          &lt;b&gt;Vehicle Class:&lt;/b&gt;{' '}
-          &lt;span data-testid="detail-card-vehicle_class"&gt;
-            {cardDetail?.vehicle_class}
+          &lt;b&gt;Description:&lt;/b&gt;{' '}
+          &lt;span data-testid="detail-card-desciption"&gt;
+            {cardDetail?.description}
           &lt;/span&gt;
         &lt;/div&gt;
       &lt;/div&gt;
@@ -310,7 +256,7 @@ export default DetailCard;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-12T22:58:18.081Z
+                at 2023-11-19T22:34:23.183Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

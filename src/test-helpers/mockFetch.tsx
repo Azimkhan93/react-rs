@@ -2,25 +2,25 @@ import { http, HttpResponse } from 'msw';
 
 export const handlers = [
   http.post('/auth', () => {
-    // Note that you DON'T have to stringify the JSON!
     return HttpResponse.json({
-      user: {
-        cargo_capacity: '50000',
-        consumables: '2 months',
-        cost_in_credits: '150000',
-        created: '2014-12-10T15:36:25.724000Z',
-        crew: '46',
-        edited: '2014-12-10T15:36:25.724000Z',
-        length: '36.8',
-        manufacturer: 'Corellia Mining Corporation',
-        max_atmosphering_speed: '30',
-        model: 'Digger Crawler',
-        name: 'Sand Crawler',
-        passengers: '30',
-        pilots: [],
-        films: ['https://swapi.dev/api/films/1/'],
-        url: 'https://swapi.dev/api/vehicles/4/',
-        vehicle_class: 'wheeled',
+      products: {
+        id: 1,
+        title: 'iPhone 9',
+        description: 'An apple mobile which is nothing like apple',
+        price: 549,
+        discountPercentage: 12.96,
+        rating: 4.69,
+        stock: 94,
+        brand: 'Apple',
+        category: 'smartphones',
+        thumbnail: 'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
+        images: [
+          'https://i.dummyjson.com/data/products/1/1.jpg',
+          'https://i.dummyjson.com/data/products/1/2.jpg',
+          'https://i.dummyjson.com/data/products/1/3.jpg',
+          'https://i.dummyjson.com/data/products/1/4.jpg',
+          'https://i.dummyjson.com/data/products/1/thumbnail.jpg',
+        ],
       },
     });
   }),

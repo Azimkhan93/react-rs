@@ -1,15 +1,15 @@
 import { http, HttpResponse } from 'msw';
-import { userListData, userDetailData } from '../mock/user-data';
+import { userListData } from '../mock/user-data';
 
 export const userListHandler = http.get(
-  'https://swapi.dev/api/vehicles/',
+  'https://dummyjson.com/products/',
   async ({ request, params }) => {
     console.log(params);
     const url = new URL(request.url);
     const page = url.searchParams.get('page') || 1;
     const search = url.searchParams.get('search');
     const foundResults = search
-      ? userListData.filter((data) => data.name === search)
+      ? userListData.filter((data) => data.title === search)
       : userListData;
 
     const startItem = (Number(page) - 1) * 10;
@@ -24,10 +24,12 @@ export const userListHandler = http.get(
 );
 
 export const userDetailHandler = http.get(
-  'https://swapi.dev/api/vehicles/:id',
+  'https://dummyjson.com/products/:id',
   async ({ params }) => {
-    if (params.id === '4') {
-      return HttpResponse.json(userDetailData);
+    if (params.id) {
+      return HttpResponse.json(
+        userListData.find((user) => user.id === Number(params.id))
+      );
     }
   }
 );

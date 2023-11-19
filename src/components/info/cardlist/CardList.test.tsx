@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import React, { useState } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { mswServer } from '../../../test/msw-server';
+import { mswServer } from '../../../test-helpers/msw-server';
 import Info from '../Info';
 import { UserContext, userContextState } from '../../context/Context';
 import { UserDataResults } from '../../../types/props.types';

@@ -1,7 +1,8 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Search from './Search';
+import { renderWithProviders } from '../../../test-helpers/utils/test-utils';
 
 describe('Search component', () => {
   test('clicking the Search button saves the entered value to local storage', () => {
@@ -9,12 +10,19 @@ describe('Search component', () => {
     const handleSearchChange = jest.fn();
     const handleSearchClick = jest.fn();
     const inputText = 'Test Query';
-    render(
+    renderWithProviders(
       <Search
         onSearchChange={handleSearchChange}
         onSearchClick={handleSearchClick}
         inputText={inputText}
-      />
+      />,
+      {
+        preloadedState: {
+          search: {
+            searchText: 'iphone',
+          },
+        },
+      }
     );
     const input = screen.getByPlaceholderText(
       'Search by name'
@@ -35,17 +43,16 @@ describe('Search component', () => {
 
   test('retrieves value from local storage upon mounting', () => {
     // Arrange
-
+    const handleSearchChange = jest.fn();
     const handleSearchClick = jest.fn();
     const inputText = 'Test Query';
 
     localStorage.setItem('searchKey', inputText);
-    const onSearchChangeMock = jest.fn();
 
     // Act
-    render(
+    renderWithProviders(
       <Search
-        onSearchChange={onSearchChangeMock}
+        onSearchChange={handleSearchChange}
         onSearchClick={handleSearchClick}
         inputText={inputText}
       />
@@ -59,6 +66,6 @@ describe('Search component', () => {
     expect(input.value).toBe(inputText);
     fireEvent.change(input, { target: { value: 'New Value' } });
 
-    expect(onSearchChangeMock).toHaveBeenCalledWith('New Value');
+    expect(handleSearchChange).toHaveBeenCalledWith('New Value');
   });
 });
