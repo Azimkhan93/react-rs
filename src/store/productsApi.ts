@@ -10,7 +10,10 @@ export const productsApi = createApi({
       query: ({ searchText, limit, skip }) =>
         `products/search?q=${searchText}&limit=${limit}&skip=${skip}`,
     }),
+    fetchProductById: builder.query({
+      query: (productId: string) => `products/${productId}`,
+    }),
   }),
 });
 
-export const { useFetchPagesQuery } = productsApi;
+export const { useFetchPagesQuery, useFetchProductByIdQuery } = productsApi;
