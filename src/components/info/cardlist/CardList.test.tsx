@@ -1,10 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import React, { useState } from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { mswServer } from '../../../test-helpers/msw-server';
 import Info from '../Info';
 import { UserContext, userContextState } from '../../context/Context';
 import { UserDataResults } from '../../../types/props.types';
+import { renderWithProviders } from '../../../test-helpers/utils/test-utils';
 
 class LocalStorageMock implements Storage {
   private store: { [key: string]: string } = {};
@@ -57,12 +58,17 @@ const ContextComponent = () => {
 
 describe('Card List component', () => {
   test('renders the specified number of cards', async () => {
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/?limit=10&page=2']}>
         <Routes>
           <Route path="/" element={<ContextComponent />} />
         </Routes>
-      </MemoryRouter>
+      </MemoryRouter>,
+      {
+        preloadedState: {
+          items: { itemsPerPage: 10 },
+        },
+      }
     );
     // };
     //Assert
@@ -75,7 +81,7 @@ describe('Card List component', () => {
 
   test('message is displayed if no cards are present', async () => {
     localStorage.setItem('searchKey', 'asdalsdjafdlah');
-    render(
+    renderWithProviders(
       <MemoryRouter initialEntries={['/?search=asdalsdjafdlah']}>
         <Routes>
           <Route path="/" element={<ContextComponent />} />
