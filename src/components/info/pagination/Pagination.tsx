@@ -1,5 +1,8 @@
+import { useDispatch, useSelector } from 'react-redux';
 import ErrorTestButton from '../../errorBoundary/errorTestButton';
 import './Pagination.css';
+import { AppDispatch, RootState } from '../../../store/store';
+import { setItemsPerPage } from '../../../store/itemsPerPageSlice';
 
 type Props = {
   page: string | null;
@@ -17,9 +20,13 @@ const Pagination = ({
   onPageChange,
 }: Props) => {
   const limit = Number(limitParam) || initialLimit;
+  const itemsPerPage = useSelector(
+    (state: RootState) => state.items.itemsPerPage
+  );
+  const dispatch: AppDispatch = useDispatch();
   const handleItemsPerPageChange = (e: { target: { value: string } }) => {
-    const selectedItemsPerPage = Number(e.target.value);
-    onLimitChange('limit', selectedItemsPerPage.toString());
+    dispatch(setItemsPerPage(Number(e.target.value)));
+    onLimitChange('limit', itemsPerPage.toString());
     onPageChange('page', '1');
   };
 
