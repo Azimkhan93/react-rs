@@ -18,18 +18,18 @@ const getInitSearchText = () => {
 const Info: React.FC<EmptyProps> = () => {
   const dispatch: AppDispatch = useDispatch();
   const searchText = useSelector((state: RootState) => state.search.searchText);
-
+  const itemsPerPage = useSelector(
+    (state: RootState) => state.items.itemsPerPage
+  );
   const [inputText, setInputText] = useState(getInitSearchText());
   const [searchParams, setSearchParams] = useSearchParams();
-  const limitParam = searchParams.get('limit');
   const pageParam = searchParams.get('page');
   const page = Number(pageParam) || 1;
-  const limit = Number(limitParam) || 10;
-  const skip = page * limit - limit;
+  const skip = page * itemsPerPage - itemsPerPage;
 
   const { data, error, isLoading } = useFetchPagesQuery({
     searchText,
-    limit,
+    itemsPerPage,
     skip,
   });
 
@@ -64,7 +64,6 @@ const Info: React.FC<EmptyProps> = () => {
       />
       <Pagination
         page={searchParams.get('page')}
-        limitParam={searchParams.get('limit')}
         onPageChange={handleSearchParams}
         onLimitChange={handleSearchParams}
         elementCount={data.total}

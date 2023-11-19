@@ -7,8 +7,8 @@ export const productsApi = createApi({
   }),
   endpoints: (builder) => ({
     fetchPages: builder.query({
-      query: ({ searchText, limit, skip }) =>
-        `products/search?q=${searchText}&limit=${limit}&skip=${skip}`,
+      query: ({ searchText, itemsPerPage, skip }) =>
+        `products/search?q=${searchText}&limit=${itemsPerPage}&skip=${skip}`,
     }),
     fetchProductById: builder.query({
       query: (productId: string) => `products/${productId}`,
