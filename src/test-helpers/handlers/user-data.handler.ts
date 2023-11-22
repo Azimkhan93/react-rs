@@ -2,23 +2,20 @@ import { http, HttpResponse } from 'msw';
 import { userListData } from '../mock/user-data';
 
 export const userListHandler = http.get(
-  'https://dummyjson.com/products/',
-  async ({ request, params }) => {
-    console.log(params);
+  'https://dummyjson.com/products/search',
+  async ({ request }) => {
     const url = new URL(request.url);
-    const page = url.searchParams.get('page') || 1;
-    const search = url.searchParams.get('search');
+    const skip = url.searchParams.get('skip') || 1;
+    const search = url.searchParams.get('q');
+    const limit = url.searchParams.get('limit') || 10;
     const foundResults = search
       ? userListData.filter((data) => data.title === search)
       : userListData;
-
-    const startItem = (Number(page) - 1) * 10;
-    const endItem = Number(page) * 10;
-    const results = foundResults.slice(startItem, endItem);
-
+    const endItem = Number(skip) + Number(limit);
+    const products = foundResults.slice(Number(skip), endItem);
     return HttpResponse.json({
       count: userListData.length,
-      results,
+      products,
     });
   }
 );

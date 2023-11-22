@@ -25,7 +25,7 @@ const Info: React.FC<EmptyProps> = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const pageParam = searchParams.get('page');
   const page = Number(pageParam) || 1;
-  const skip = page * itemsPerPage - itemsPerPage;
+  const skip = (page - 1) * itemsPerPage;
   const { data, error, isLoading } = useFetchPagesQuery({
     searchText,
     itemsPerPage,
@@ -69,9 +69,7 @@ const Info: React.FC<EmptyProps> = () => {
       />
       <CardList onSearchParams={searchParams} products={data.products} />
     </div>
-  ) : (
-    <>Nothing was found</>
-  );
+  ) : null;
   return <div>{cards}</div>;
 };
 

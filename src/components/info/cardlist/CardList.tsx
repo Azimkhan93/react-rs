@@ -24,7 +24,7 @@ const CardList = ({ onSearchParams, products }: Props) => {
   };
   const infoComponents =
     products.length === 0 ? (
-      <h1>Nothing was found</h1>
+      <h1 data-testid="found">Nothing was found</h1>
     ) : (
       products.map(
         (user: UserDataResults, index: React.Key | null | undefined) => (
@@ -38,7 +38,7 @@ const CardList = ({ onSearchParams, products }: Props) => {
         )
       )
     );
-
+  console.log('datata', products.length, products);
   return (
     <div>
       <div className="general-container">

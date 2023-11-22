@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.69% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/13</span>
+                <span class='fraction'>7/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">7.69% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/13</span>
+                <span class='fraction'>7/14</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -125,28 +125,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -155,8 +155,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -176,10 +176,10 @@ type Props = {
   products: UserDataResults[];
 };
 &nbsp;
-const CardList = <span class="fstat-no" title="function not covered" >({</span> onSearchParams, products }: Props) =&gt; {
-  const navigate = <span class="cstat-no" title="statement not covered" >useNavigate();</span>
+const CardList = ({ onSearchParams, products }: Props) =&gt; {
+  const navigate = useNavigate();
 &nbsp;
-  const handleCardClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(i</span>d: string) =&gt; {</span>
+  const handleCardClick = <span class="fstat-no" title="function not covered" >(i</span>d: string) =&gt; {
     const path = <span class="cstat-no" title="statement not covered" >generatePath('/:id', { id });</span>
     const entries = <span class="cstat-no" title="statement not covered" >onSearchParams.entries();</span>
     const searchArray: string[] = <span class="cstat-no" title="statement not covered" >[];</span>
@@ -192,12 +192,12 @@ const CardList = <span class="fstat-no" title="function not covered" >({</span> 
     });
   };
   const infoComponents =
-<span class="cstat-no" title="statement not covered" >    products.length === 0 ? (</span>
-      &lt;h1&gt;Nothing was found&lt;/h1&gt;
+    products.length === 0 ? (
+      &lt;h1 data-testid="found"&gt;Nothing was found&lt;/h1&gt;
     ) : (
       products.map(
-<span class="fstat-no" title="function not covered" >        (u</span>ser: UserDataResults, index: React.Key | null | undefined) =&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;Card</span>
+        (user: UserDataResults, index: React.Key | null | undefined) =&gt; (
+          &lt;Card
             onCardClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >handleCardClick(String(user.id))}</span>
             key={index}
             brand={user.brand}
@@ -207,8 +207,8 @@ const CardList = <span class="fstat-no" title="function not covered" >({</span> 
         )
       )
     );
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  console.log('datata', products.length, products);
+  return (
     &lt;div&gt;
       &lt;div className="general-container"&gt;
         &lt;div className="info-container"&gt;{infoComponents}&lt;/div&gt;
@@ -226,7 +226,7 @@ export default CardList;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-11-19T22:58:05.910Z
+                at 2023-11-20T00:16:49.654Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
