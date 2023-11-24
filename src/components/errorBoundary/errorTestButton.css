@@ -1,0 +1,10 @@
+.error__button-container {
+  text-align: center;
+  text-wrap: nowrap;
+}
+
+.error__button {
+  font-size: 1.5rem;
+  color: aliceblue;
+  background-color: brown;
+}
