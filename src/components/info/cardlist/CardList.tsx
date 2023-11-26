@@ -1,30 +1,33 @@
 import React from 'react';
 import Card from './card/Card';
-import styles from './CardList.module.css'
+import styles from './CardList.module.css';
 import { UserDataResults } from '@/types/props.types';
 import { MyRouter } from '../Info';
 import { NextRouter } from 'next/router';
+import Details from '@/components/details/Details';
 type Props = {
   router: NextRouter;
   products: UserDataResults[];
 };
 
 const CardList = ({ router, products }: Props) => {
-
   const handleCardClick = (id: string) => {
-    const path = `/${ id }`;
-    const entries = Object.entries(router.query as MyRouter)
+    const path = `/${id}`;
+    const entries = Object.entries(router.query as MyRouter);
     const searchArray: string[] = [];
     for (const entry of entries) {
       searchArray.push(entry.join('='));
     }
-    
+
     router.push({
-      pathname:  path,
+      pathname: path,
       search: searchArray.join('&'),
-    })
-    console.log('searcharray', router)
+    });
+    console.log('searcharray', path);
   };
+
+  const detailsComponent = router.query.id ? <Details /> : null;
+  console.log('detailscomponentik', detailsComponent);
   const infoComponents =
     products.length === 0 ? (
       <h1 data-testid="found">Nothing was found</h1>
@@ -41,11 +44,14 @@ const CardList = ({ router, products }: Props) => {
         )
       )
     );
+
   console.log('datata', products.length, products);
   return (
     <div>
       <div className={styles.general_container}>
         <div className={styles.info_container}>{infoComponents}</div>
+        <div>{detailsComponent}</div>
+
         {/* <Outlet /> */}
       </div>
     </div>

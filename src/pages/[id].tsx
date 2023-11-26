@@ -1,20 +1,11 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Info from '@/components/info/Info';
-import Details from '@/components/details/Details';
-import type { InferGetServerSidePropsType, GetServerSideProps } from 'next';
 import { wrapper } from '@/store/store';
 import {
   fetchPages,
   fetchProductById,
   getRunningQueriesThunk,
-  useFetchProductByIdQuery,
 } from '@/store/productsApi';
-
-type Repo = {
-  name: string;
-  stargazers_count: number;
-};
 
 function DetailsPage() {
   return (
@@ -25,15 +16,12 @@ function DetailsPage() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="main">
         <Info />
-        <Details />
       </main>
     </>
   );
 }
-
-
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -46,7 +34,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     console.log('context', searchText, itemsPerPage, page);
     if (typeof searchText === 'string') {
-      console.log(  store.dispatch(fetchPages.initiate({ searchText, itemsPerPage, skip })));
+      console.log(
+        store.dispatch(fetchPages.initiate({ searchText, itemsPerPage, skip }))
+      );
     }
 
     const productId = context.params?.id;
