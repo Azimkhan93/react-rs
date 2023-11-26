@@ -1,5 +1,5 @@
 import React from 'react';
-// import './TextCard.css';
+import styles from './TextCard.module.css';
 
 type Props = {
   brand: string;
@@ -8,7 +8,7 @@ type Props = {
 };
 const TextCard = ({ brand, title, category }: Props) => {
   return (
-    <div className="textcard">
+    <div className={styles.textcard}>
       <span>
         <b>Title: </b>
       </span>

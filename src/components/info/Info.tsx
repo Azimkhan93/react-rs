@@ -28,9 +28,11 @@ const Info: React.FC<EmptyProps> = () => {
   const itemsPerPage = useSelector(
     (state: RootState) => state.items.itemsPerPage
   );
+  console.log('itemsperPage', itemsPerPage);
   const [inputText, setInputText] = useState(getInitSearchText());
   const router = useRouter();
   const { page, search, limit } = router.query as MyRouter;
+  console.log('query', router.query)
   // const [searchParams, setSearchParams] = useSearchParams();
   // const pageParam = searchParams.get('page');
   const currentPage = Number(page) || 1;
@@ -41,6 +43,7 @@ const Info: React.FC<EmptyProps> = () => {
     skip,
   });
 
+  console.log('dataizusefetchquery', data)
   useEffect(() => {
     router.replace({
       pathname: router.pathname,
@@ -71,7 +74,7 @@ const Info: React.FC<EmptyProps> = () => {
     // handleSearchParams('page', '1');
     router.replace({
       pathname: router.pathname,
-      query: { ...router.query, search: inputText, page: '1' },
+      query: { ...router.query, search: inputText, page: '1', limit:skip },
     });
   };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { UserDataResults } from '../../types/props.types';
+import styles from './DetailCard.module.css'
 
 type Props = {
   cardDetail: UserDataResults;
@@ -7,8 +8,8 @@ type Props = {
 };
 const DetailCard = ({ cardDetail, onCloseClick }: Props) => {
   return (
-    <div className="details-subcontainer">
-      <div className="detail-wrapper">
+    <div className={styles.details_subcontainer}>
+      <div className={styles.details_wrapper}>
         <div>
           <b>Title:</b>{' '}
           <span data-testid="detail-card-title">{cardDetail?.title}</span>
@@ -46,9 +47,9 @@ const DetailCard = ({ cardDetail, onCloseClick }: Props) => {
           </span>
         </div>
       </div>
-      <div className="close-btn-wrapper">
+      <div className={styles.close_btn_wrapper}>
         <button
-          className="close-btn"
+          className={styles.close_btn}
           data-testid="close-button"
           onClick={onCloseClick}
         >

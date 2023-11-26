@@ -1,5 +1,5 @@
 import React, { Component, ErrorInfo } from 'react';
-import './errorBoundary.css';
+import styles from './errorBoundary.module.css';
 interface ErrorBoundaryProps {
   children: React.ReactNode;
 }
@@ -22,8 +22,8 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="error__container">
-          <h1 className="error__text">SOMETHING WENT WRONG!</h1>
+        <div className={styles.error__container}>
+          <h1 className={styles.error__text}>SOMETHING WENT WRONG!</h1>
         </div>
       );
     }

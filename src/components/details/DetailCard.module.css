@@ -1,26 +1,16 @@
-.details-container {
-  flex: 2 1 0px;
-  border: 5px solid #0276ff;
-  border-radius: 15px;
-  padding: 20px;
-  margin-right: 50px;
-  max-height: 70vh;
-  background-color: #e7e8d1;
-}
-
-.details-subcontainer {
+.details_subcontainer {
   display: flex;
   position: relative;
   flex-direction: row;
   line-height: 2;
 }
 
-.close-btn-wrapper {
+.close_btn_wrapper {
   position: absolute;
   right: 20px;
 }
 
-.close-btn {
+.close_btn {
   align-items: center;
   appearance: button;
   background-color: brown;
@@ -49,16 +39,16 @@
   touch-action: manipulation;
 }
 
-.close-btn:active {
+.close_btn:active {
   background-color: rgb(135, 34, 34);
   transform: translateY(2px);
 }
 
-.close-btn:hover {
+.close_btn:hover {
   background-color: rgb(162, 68, 68);
 }
 
-.close-btn:hover {
+.close_btn:hover {
   box-shadow:
     0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);

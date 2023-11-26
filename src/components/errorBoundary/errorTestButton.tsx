@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './errorTestButton.css';
+import styles from './errorTestButton.module.css';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -29,8 +29,8 @@ class ErrorTestButton extends Component<
       throw new Error('Intentional error thrown from button click');
     }
     return (
-      <div className="error__button-container">
-        <button onClick={this.handleClick} className="error__button">
+      <div className={styles.error__button_container}>
+        <button onClick={this.handleClick} className={styles.error__button}>
           Throw Error
         </button>
       </div>

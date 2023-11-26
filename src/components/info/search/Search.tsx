@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-// import './search.css';
+import styles from './Search.module.css';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 
@@ -26,16 +26,16 @@ const Search = ({
   };
 
   return (
-    <div className="search">
+    <div className={styles.search}>
       <input
         type="search"
-        className="input-area"
+        className={styles.input_area}
         name="search"
         placeholder="Search by name"
         onChange={handleInputChange}
         value={inputText}
       />
-      <button className="search-btn" onClick={handleButtonClick}>
+      <button className={styles.search_btn} onClick={handleButtonClick}>
         Go
       </button>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from './card/Card';
+import styles from './CardList.module.css'
 import { UserDataResults } from '@/types/props.types';
 import { MyRouter } from '../Info';
 import { NextRouter } from 'next/router';
@@ -17,12 +18,12 @@ const CardList = ({ router, products }: Props) => {
     for (const entry of entries) {
       searchArray.push(entry.join('='));
     }
-    console.log('searcharray', searchArray)
-
+    
     router.push({
-      pathname:  router.pathname,
+      pathname:  path,
       search: searchArray.join('&'),
     })
+    console.log('searcharray', router)
   };
   const infoComponents =
     products.length === 0 ? (
@@ -43,8 +44,8 @@ const CardList = ({ router, products }: Props) => {
   console.log('datata', products.length, products);
   return (
     <div>
-      <div className="general-container">
-        <div className="info-container">{infoComponents}</div>
+      <div className={styles.general_container}>
+        <div className={styles.info_container}>{infoComponents}</div>
         {/* <Outlet /> */}
       </div>
     </div>

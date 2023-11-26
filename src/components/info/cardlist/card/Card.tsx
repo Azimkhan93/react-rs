@@ -1,6 +1,6 @@
 import React, { MouseEventHandler } from 'react';
 import TextCard from './TextCard';
-// import './Card.css';
+import styles from './Card.module.css';
 
 type Props = {
   onCardClick: MouseEventHandler<HTMLDivElement>;
@@ -11,7 +11,7 @@ type Props = {
 
 const Card = ({ onCardClick, brand, title, category }: Props) => {
   return (
-    <div onClick={onCardClick} className="card" data-testid="card">
+    <div onClick={onCardClick} className={styles.card} data-testid="card">
       <TextCard brand={brand} title={title} category={category} />
     </div>
   );

@@ -1,11 +1,22 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import Info from '@/components/info/Info';
+import Details from '@/components/details/Details';
+import type { InferGetServerSidePropsType, GetServerSideProps } from 'next';
 import { wrapper } from '@/store/store';
-import { fetchPages, getRunningQueriesThunk } from '@/store/productsApi';
+import {
+  fetchPages,
+  fetchProductById,
+  getRunningQueriesThunk,
+  useFetchProductByIdQuery,
+} from '@/store/productsApi';
 
+type Repo = {
+  name: string;
+  stargazers_count: number;
+};
 
-export default function Home() {
+function DetailsPage() {
   return (
     <>
       <Head>
@@ -15,11 +26,14 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-       <Info/>
+        <Info />
+        <Details />
       </main>
     </>
   );
 }
+
+
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -35,6 +49,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
       console.log(  store.dispatch(fetchPages.initiate({ searchText, itemsPerPage, skip })));
     }
 
+    const productId = context.params?.id;
+    // console.log(context);
+    if (typeof productId === 'string') {
+      store.dispatch(fetchProductById.initiate(productId));
+    }
+
     await Promise.all(store.dispatch(getRunningQueriesThunk()));
 
     return {
@@ -42,3 +62,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
     };
   }
 );
+
+export default DetailsPage;

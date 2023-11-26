@@ -1,4 +1,4 @@
-.display-options {
+.display_options {
   display: flex;
   padding: 5px;
   align-items: center;
@@ -21,7 +21,7 @@
     box-shadow 0.13s ease-in-out;
 }
 
-.page-clicked {
+.page_clicked {
   background-color: #0276ff;
   font-size: 1rem;
   color: white;
@@ -31,23 +31,27 @@
   border: none;
 }
 
-button:active {
+.page:active {
   transform: translateY(2px);
 }
 
-.select-title {
+.page_clicked:active {
+  transform: translateY(2px);
+}
+
+.select_title {
   font-size: 1.1rem;
   font-weight: 600;
 }
 
-label {
+.label_class {
   background-color: #0276ff;
   color: white;
   border-radius: 10px;
   padding: 5px 2px;
 }
 
-label select {
+.label_class .select_class {
   background-color: #0276ff;
   color: white;
   padding: 6px 0 6px 12px;
@@ -59,6 +63,6 @@ label select {
   border-radius: 10px;
 }
 
-select option {
+.select_class .option_class {
   padding: 30px;
 }

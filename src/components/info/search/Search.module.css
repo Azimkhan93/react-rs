@@ -5,7 +5,7 @@
   background-color: #b85042;
 }
 
-.input-area {
+.input_area {
   border-radius: 10px;
   height: 35px;
   width: 400px;
@@ -14,7 +14,7 @@
   border: 2px solid rgb(133, 133, 133);
 }
 
-.search-btn {
+.search_btn {
   align-items: center;
   appearance: button;
   background-color: #0276ff;
@@ -43,16 +43,16 @@
   touch-action: manipulation;
 }
 
-.search-btn:active {
+.search_btn:active {
   background-color: #006ae8;
   transform: translateY(2px);
 }
 
-.search-btn:hover {
+.search_btn:hover {
   background-color: #1c84ff;
 }
 
-.search-btn:hover {
+.search_btn:hover {
   box-shadow:
     0 12px 16px 0 rgba(0, 0, 0, 0.24),
     0 17px 50px 0 rgba(0, 0, 0, 0.19);
