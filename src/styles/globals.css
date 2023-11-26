@@ -1,0 +1,20 @@
+.container {
+  height: 100%;
+}
+
+body,
+#root {
+  margin: 0;
+  background-color: #a7beae;
+  height: 100%;
+}
+
+html {
+  height: 100vh;
+}
+
+.main{
+  display: flex;
+  box-sizing: content-box;
+  max-width: max-content;
+}

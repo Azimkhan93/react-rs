@@ -1,0 +1,68 @@
+.display_options {
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  justify-content: space-evenly;
+  min-height: 60px;
+}
+
+.page {
+  font-size: 1rem;
+  color: white;
+  background-color: #b85042;
+  box-shadow: rgba(255, 255, 255, 0.26) 0 1px 2px inset;
+  border-radius: 10px;
+  margin: 0 4px;
+  padding: 4px 8px;
+  border: none;
+  transition:
+    color 0.13s ease-in-out background 0.13s ease-in-out,
+    opacity 0.13s ease-in-out,
+    box-shadow 0.13s ease-in-out;
+}
+
+.page_clicked {
+  background-color: #0276ff;
+  font-size: 1rem;
+  color: white;
+  border-radius: 10px;
+  margin: 0 4px;
+  padding: 4px 8px;
+  border: none;
+}
+
+.page:active {
+  transform: translateY(2px);
+}
+
+.page_clicked:active {
+  transform: translateY(2px);
+}
+
+.select_title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.label_class {
+  background-color: #0276ff;
+  color: white;
+  border-radius: 10px;
+  padding: 5px 2px;
+}
+
+.label_class .select_class {
+  background-color: #0276ff;
+  color: white;
+  padding: 6px 0 6px 12px;
+  width: 65px;
+  border: none;
+  -webkit-appearance: button;
+  appearance: button;
+  outline: none;
+  border-radius: 10px;
+}
+
+.select_class .option_class {
+  padding: 30px;
+}
