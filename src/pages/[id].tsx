@@ -32,15 +32,11 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const currentPage = Number(page) || 1;
     const skip = (currentPage - 1) * Number(itemsPerPage);
 
-    console.log('context', searchText, itemsPerPage, page);
     if (typeof searchText === 'string') {
-      console.log(
-        store.dispatch(fetchPages.initiate({ searchText, itemsPerPage, skip }))
-      );
+      store.dispatch(fetchPages.initiate({ searchText, itemsPerPage, skip }));
     }
 
     const productId = context.params?.id;
-    // console.log(context);
     if (typeof productId === 'string') {
       store.dispatch(fetchProductById.initiate(productId));
     }

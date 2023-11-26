@@ -1,9 +1,7 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import Info from '@/components/info/Info';
 import { wrapper } from '@/store/store';
 import { fetchPages, getRunningQueriesThunk } from '@/store/productsApi';
-
 
 export default function Home() {
   return (
@@ -15,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-       <Info/>
+        <Info />
       </main>
     </>
   );
@@ -23,16 +21,19 @@ export default function Home() {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const searchText = context.query.search;
-    const itemsPerPage = context.query.limit;
-    const page = context.query.page;
+    const searchText = context.query.search || '';
+    const itemsPerPage = context.query.limit || '10';
+    const page = context.query.page || '1';
 
     const currentPage = Number(page) || 1;
     const skip = (currentPage - 1) * Number(itemsPerPage);
 
-    console.log('context', searchText, itemsPerPage, page);
     if (typeof searchText === 'string') {
-      console.log(  store.dispatch(fetchPages.initiate({ searchText, itemsPerPage, skip })));
+      store.dispatch(fetchPages.initiate({ searchText, itemsPerPage, skip }));
+    }
+
+    if (typeof searchText === 'undefined') {
+      store.dispatch(fetchPages.initiate({ itemsPerPage, skip }));
     }
 
     await Promise.all(store.dispatch(getRunningQueriesThunk()));

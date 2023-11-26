@@ -23,11 +23,9 @@ const CardList = ({ router, products }: Props) => {
       pathname: path,
       search: searchArray.join('&'),
     });
-    console.log('searcharray', path);
   };
 
   const detailsComponent = router.query.id ? <Details /> : null;
-  console.log('detailscomponentik', detailsComponent);
   const infoComponents =
     products.length === 0 ? (
       <h1 data-testid="found">Nothing was found</h1>
@@ -45,7 +43,6 @@ const CardList = ({ router, products }: Props) => {
       )
     );
 
-  console.log('datata', products.length, products);
   return (
     <div>
       <div className={styles.general_container}>

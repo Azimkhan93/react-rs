@@ -1,6 +1,6 @@
 import React from 'react';
 import { UserDataResults } from '../../types/props.types';
-import styles from './DetailCard.module.css'
+import styles from './DetailCard.module.css';
 
 type Props = {
   cardDetail: UserDataResults;

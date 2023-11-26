@@ -1,11 +1,10 @@
 import { screen, waitFor } from '@testing-library/react';
-import React, { useState } from 'react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import React from 'react';
 import { mswServer } from '../../../test-helpers/msw-server';
 import Info from '../Info';
-import { UserContext, userContextState } from '../../context/Context';
-import { UserDataResults } from '../../../types/props.types';
 import { renderWithProviders } from '../../../test-helpers/utils/test-utils';
+
+jest.mock('next/router', () => require('next-router-mock'));
 
 class LocalStorageMock implements Storage {
   private store: { [key: string]: string } = {};
@@ -45,33 +44,9 @@ beforeAll(() => {
 afterEach(() => mswServer.resetHandlers());
 afterAll(() => mswServer.close());
 
-const ContextComponent = () => {
-  const [userData, setUserData] = useState<UserDataResults[]>(
-    userContextState.userData
-  );
-  return (
-    <UserContext.Provider value={{ userData, setUserData }}>
-      <Info />
-    </UserContext.Provider>
-  );
-};
-
 describe('Card List component', () => {
   test('renders the specified number of cards', async () => {
-    renderWithProviders(
-      <MemoryRouter initialEntries={['/?limit=10&page=2']}>
-        <Routes>
-          <Route path="/" element={<ContextComponent />} />
-        </Routes>
-      </MemoryRouter>,
-      {
-        preloadedState: {
-          items: { itemsPerPage: 10 },
-        },
-      }
-    );
-    // };
-    //Assert
+    renderWithProviders(<Info />);
     await waitFor(() => {
       expect(screen.queryByTestId('loader')).toBeNull();
     });
@@ -80,14 +55,7 @@ describe('Card List component', () => {
   });
 
   test('message is displayed if no cards are present', async () => {
-    renderWithProviders(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<ContextComponent />} />
-        </Routes>
-      </MemoryRouter>,
-      { preloadedState: { search: { searchText: 'asdalsdjafdlah' } } }
-    );
+    renderWithProviders(<Info />);
     // };
     //Assert
     await waitFor(() => {

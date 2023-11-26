@@ -8,7 +8,7 @@ export const productsApi = createApi({
   }),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
-      return action.payload[reducerPath]
+      return action.payload[reducerPath];
     }
   },
   endpoints: (builder) => ({
@@ -22,5 +22,9 @@ export const productsApi = createApi({
   }),
 });
 
-export const { useFetchPagesQuery, useFetchProductByIdQuery,  util: { getRunningQueriesThunk }, } = productsApi;
-export const {fetchPages, fetchProductById} = productsApi.endpoints;
+export const {
+  useFetchPagesQuery,
+  useFetchProductByIdQuery,
+  util: { getRunningQueriesThunk },
+} = productsApi;
+export const { fetchPages, fetchProductById } = productsApi.endpoints;

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { EmptyProps } from '@/types/props.types';
 import Search from './search/Search';
 import Pagination from './pagination/Pagination';
-import { useSearchParams } from 'next/navigation';
 import CardList from './cardlist/CardList';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSearchText } from '../../store/searchSlice';
@@ -13,13 +12,15 @@ import Loader from './loader/Loader';
 import { useRouter } from 'next/router';
 
 export type MyRouter = {
-  page: string,
-  search: string, 
-  limit: string
-}
+  page: string;
+  search: string;
+  limit: string;
+};
 
 const getInitSearchText = () => {
-  return typeof window !== 'undefined' ? localStorage.getItem('searchKey') || '': '';
+  return typeof window !== 'undefined'
+    ? localStorage.getItem('searchKey') || ''
+    : '';
 };
 
 const Info: React.FC<EmptyProps> = () => {
@@ -28,13 +29,9 @@ const Info: React.FC<EmptyProps> = () => {
   const itemsPerPage = useSelector(
     (state: RootState) => state.items.itemsPerPage
   );
-  console.log('itemsperPage', itemsPerPage);
   const [inputText, setInputText] = useState(getInitSearchText());
   const router = useRouter();
-  const { page, search, limit } = router.query as MyRouter;
-  console.log('query', router.query)
-  // const [searchParams, setSearchParams] = useSearchParams();
-  // const pageParam = searchParams.get('page');
+  const { page } = router.query as MyRouter;
   const currentPage = Number(page) || 1;
   const skip = (currentPage - 1) * itemsPerPage;
   const { data, error, isLoading } = useFetchPagesQuery({
@@ -43,7 +40,6 @@ const Info: React.FC<EmptyProps> = () => {
     skip,
   });
 
-  console.log('dataizusefetchquery', data)
   useEffect(() => {
     router.replace({
       pathname: router.pathname,
@@ -74,7 +70,7 @@ const Info: React.FC<EmptyProps> = () => {
     // handleSearchParams('page', '1');
     router.replace({
       pathname: router.pathname,
-      query: { ...router.query, search: inputText, page: '1', limit:skip },
+      query: { ...router.query, search: inputText, page: '1', limit: skip },
     });
   };
 

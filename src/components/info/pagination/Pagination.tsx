@@ -42,10 +42,18 @@ const Pagination = ({
           onChange={handleItemsPerPageChange}
           className={styles.select_class}
         >
-          <option className={styles.option_class} value={10}>10</option>
-          <option className={styles.option_class} value={20}>20</option>
-          <option className={styles.option_class} value={30}>30</option>
-          <option className={styles.option_class} value={elementCount}>All</option>
+          <option className={styles.option_class} value={10}>
+            10
+          </option>
+          <option className={styles.option_class} value={20}>
+            20
+          </option>
+          <option className={styles.option_class} value={30}>
+            30
+          </option>
+          <option className={styles.option_class} value={elementCount}>
+            All
+          </option>
         </select>
       </label>
       <div className={styles.page__buttons}>
@@ -55,7 +63,11 @@ const Pagination = ({
           <button
             data-testid={`page-button-${index + 1}`}
             key={index}
-            className={page === String(index + 1) ? `${styles.page_clicked}` : `${styles.page}`}
+            className={
+              page === String(index + 1)
+                ? `${styles.page_clicked}`
+                : `${styles.page}`
+            }
             onClick={() => handleClick(index + 1)}
           >
             {index + 1}

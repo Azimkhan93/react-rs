@@ -1,7 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  searchText: typeof window !== 'undefined' ? localStorage.getItem('searchKey') || '' : '',
+  searchText:
+    typeof window !== 'undefined'
+      ? localStorage.getItem('searchKey') || ''
+      : '',
 };
 
 export const searchSlice = createSlice({
