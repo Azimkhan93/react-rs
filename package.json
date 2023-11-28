@@ -23,7 +23,7 @@
     "react-dom": "^18.2.0"
   },
   "lint-staged": {
-    "*.(ts|tsx|js|jsx)":[
+    "*.(ts|tsx|js|jsx)": [
       "npm run lint",
       "npm run format:fix"
     ]
@@ -35,17 +35,17 @@
     "@typescript-eslint/parser": "^6.10.0",
     "@vitejs/plugin-react": "^4.2.0",
     "eslint": "^8.53.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.4",
-    "typescript": "^5.2.2",
-    "vite": "^5.0.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.4",
     "husky": "^8.0.0",
-    "lint-staged": "^15.0.2",
-    "prettier": "^3.0.3"
+    "lint-staged": "^15.1.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.0"
   }
 }
