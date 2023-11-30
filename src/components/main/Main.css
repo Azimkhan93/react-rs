@@ -1,0 +1,33 @@
+.navbar{
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar .uncontrolled,
+.navbar .controlled
+ {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar .uncontrolled:hover,
+.navbar .controlled:hover {
+  background-color: yellow;
+  color: black;
+}
+
+.uncontrolled.pending,
+.controlled.pending
+{
+  color: #f2f2f2;
+}
+
+.uncontrolled.active,
+.controlled.active{
+  /* background-color: chocolate; */
+  color: yellow;
+}
