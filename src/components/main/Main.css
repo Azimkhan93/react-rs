@@ -1,11 +1,10 @@
-.navbar{
+.navbar {
   overflow: hidden;
   background-color: #333;
 }
 
 .navbar .uncontrolled,
-.navbar .controlled
- {
+.navbar .controlled {
   float: left;
   color: #f2f2f2;
   text-align: center;
@@ -21,13 +20,12 @@
 }
 
 .uncontrolled.pending,
-.controlled.pending
-{
+.controlled.pending {
   color: #f2f2f2;
 }
 
 .uncontrolled.active,
-.controlled.active{
+.controlled.active {
   /* background-color: chocolate; */
   color: yellow;
 }
