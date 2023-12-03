@@ -80,7 +80,7 @@ const UncontrolledForm = () => {
   ) => {
     const file = event.target.files !== null ? event.target.files[0] : null;
     const base64 = await convertBase64(file);
-    setBase64Img(base64);
+    setBase64Img(base64 as string);
   };
   const formData = useSelector((state: RootState) => state.form.formData);
   console.log('formData', formData);
