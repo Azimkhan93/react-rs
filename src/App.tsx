@@ -5,9 +5,9 @@ import {
   createRoutesFromElements,
   RouterProvider,
 } from 'react-router-dom';
-import { Main } from './components/main/Main';
-import UncontrolledForm from './components/main/uncontrolled/UncontrolledForm';
-import ControlledForm from './components/main/controlled/ControlledForm';
+import { Main } from './components/MainPage';
+import UncontrolledForm from './components/uncontrolled/UncontrolledForm';
+import ControlledForm from './components/controlled/ControlledForm';
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -1,10 +1,12 @@
 import React, { SyntheticEvent, useRef, useState } from 'react';
-import { countries } from '../../../data/country';
-import { userSchema } from '../../../validation/UserValidation';
+import { countries } from '../../data/country';
+import { userSchema } from '../../validation/UserValidation';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFormData } from '../../../store/formSlice';
-import { RootState } from '../../../store/store';
+import { setFormData } from '../../store/formSlice';
+import { RootState } from '../../store/store';
+import { convertBase64 } from '../../imageUpload/ImageUpload';
+import { useNavigate } from 'react-router-dom';
 
 const UncontrolledForm = () => {
   const dispatch = useDispatch();
@@ -16,9 +18,13 @@ const UncontrolledForm = () => {
   const maleRef = useRef<HTMLInputElement | null>(null);
   const femaleRef = useRef<HTMLInputElement | null>(null);
   const tcRef = useRef<HTMLInputElement | null>(null);
+  const imageRef = useRef<HTMLInputElement | null>(null);
   const countryRef = useRef<HTMLSelectElement | null>(null);
   const [validationErrors, setValidationErrors] =
     useState<yup.ValidationError[]>();
+
+  const [base64Img, setBase64Img] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event?.preventDefault();
@@ -50,33 +56,35 @@ const UncontrolledForm = () => {
       password: passwordRef.current?.value,
       confirmPassword: confirmPasswordRef.current?.value,
       gender: selectedGender,
+      image: imageRef.current,
       tc: tcIsChecked,
       country: selectedCountry,
     };
-    console.log(data);
-    dispatch(setFormData(data));
 
     try {
       await userSchema.validate(data, { abortEarly: false });
-
-      console.log('Form data:', data);
       setValidationErrors([]);
+      dispatch(setFormData({ ...data, image: base64Img }));
+      navigate('/');
     } catch (error) {
       if (yup.ValidationError.isError(error)) {
-        console.error('Validation error:', error.inner);
         setValidationErrors(error.inner || []);
-        console.log('test', validationErrors);
-        const nameErr = validationErrors?.map((validationError) =>
-          validationError.path === 'name' ? validationError.message : null
-        );
-        console.log(nameErr);
       } else {
         console.error('Other error:', error);
       }
     }
   };
+
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files !== null ? event.target.files[0] : null;
+    const base64 = await convertBase64(file);
+    setBase64Img(base64);
+  };
   const formData = useSelector((state: RootState) => state.form.formData);
   console.log('formData', formData);
+
   return (
     <div>
       <form className="form uncontrolled" onSubmit={handleSubmit}>
@@ -189,8 +197,15 @@ const UncontrolledForm = () => {
               type="file"
               accept="image/png, image/gif, image/jpeg"
               name="myImage"
+              onChange={handleImageUpload}
+              ref={imageRef}
             />
           </label>
+          {validationErrors?.map((validationError, index) =>
+            validationError.path === 'image' ? (
+              <p key={index}>{`${validationError.message}`}</p>
+            ) : null
+          )}
         </div>
 
         <div>

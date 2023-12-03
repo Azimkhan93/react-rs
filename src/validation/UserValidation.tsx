@@ -7,6 +7,7 @@ export interface IFormInput {
   confirmPassword: string;
   gender: string;
   tc?: boolean;
+  image?: HTMLInputElement | string;
   country: string;
 }
 
@@ -37,5 +38,14 @@ export const userSchema = yup.object().shape({
     .oneOf([yup.ref('password')], 'Passwords must match'),
   gender: yup.string().required('Gender is required'),
   tc: yup.boolean().oneOf([true], 'You must agree to Terms and Conditions'),
+  image: yup.mixed().test('fileSize', 'The file is too large', (value) => {
+    console.dir(value);
+    if (!value) {
+      return true;
+    }
+    const val = value.files ? value.files[0] : value[0];
+
+    return val?.size < 2097152;
+  }),
   country: yup.string().required('Country is required'),
 });

@@ -1,16 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { IFormInput } from '../validation/UserValidation';
 
-const initialState = {
-  formData: {
-    name: '',
-    age: 0,
-    email: '',
-    password: '',
-    confirmPassword: '',
-    gender: '',
-    tc: false,
-    country: '',
-  },
+type State = {
+  formData: IFormInput[];
+};
+
+const initialState: State = {
+  formData: [],
 };
 
 export const formSlice = createSlice({
@@ -18,10 +14,32 @@ export const formSlice = createSlice({
   initialState,
   reducers: {
     setFormData: (state, action) => {
-      state.formData = action.payload;
+      const {
+        name,
+        age,
+        email,
+        password,
+        confirmPassword,
+        gender,
+        tc,
+        image,
+        country,
+      } = action.payload;
+
+      state.formData.push({
+        name,
+        age,
+        email,
+        password,
+        confirmPassword,
+        gender,
+        tc,
+        image,
+        country,
+      });
     },
   },
 });
 
-export const { setFormData } = formSlice.actions;
+export const { setFormData, setImage } = formSlice.actions;
 export default formSlice.reducer;

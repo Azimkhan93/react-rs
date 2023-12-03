@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { userSchema, IFormInput } from '../../../validation/UserValidation';
-import { countries } from '../../../data/country';
+import { userSchema, IFormInput } from '../../validation/UserValidation';
+import { countries } from '../../data/country';
 import './ControlledForm.css';
-import { RootState } from '../../../store/store';
-import { setFormData } from '../../../store/formSlice';
+import { RootState } from '../../store/store';
+import { setFormData } from '../../store/formSlice';
+import { convertBase64 } from '../../imageUpload/ImageUpload';
+import { useNavigate } from 'react-router-dom';
 
-export const ControlledForm: React.FC = () => {
+const ControlledForm: React.FC = () => {
+  const navigate = useNavigate();
+  const [base64Img, setBase64Img] = useState('');
+  // const [imgFile, setImgFile] = useState<File | null>(null);
   const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -18,11 +24,27 @@ export const ControlledForm: React.FC = () => {
     resolver: yupResolver(userSchema),
     mode: 'onChange',
   });
+
   console.log(errors);
+
   const onSubmit = (data: IFormInput) => {
-    console.log(data);
-    dispatch(setFormData(data));
+    // console.log(data, imgFile);
+    dispatch(setFormData({ ...data, image: base64Img }));
+    navigate('/');
   };
+
+  const imgField = register('image');
+
+  const handleImageUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files !== null ? event.target.files[0] : null;
+    const base64 = await convertBase64(file);
+    // setImgFile(file);
+    setBase64Img(base64);
+    imgField.onChange(event);
+  };
+
   const formData = useSelector((state: RootState) => state.form.formData);
   console.log('formData', formData);
   return (
@@ -77,16 +99,18 @@ export const ControlledForm: React.FC = () => {
           <p>{errors.tc?.message}</p>
         </div>
 
-        {/* <div>
+        <div>
           <label>
             Upload image
             <input
+              {...register('image')}
               type="file"
               accept="image/png, image/gif, image/jpeg"
-              name="myImage"
+              onChange={handleImageUpload}
             />
           </label>
-        </div> */}
+          <p>{errors.image?.message}</p>
+        </div>
 
         <div>
           <label>Country</label>
