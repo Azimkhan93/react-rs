@@ -118,7 +118,7 @@ const UncontrolledForm = () => {
             ) : null
           )}
         </div>
-        <div>
+        <div className="input-container">
           <label htmlFor="email">E-mail</label>
           <input
             type="email"
@@ -136,7 +136,7 @@ const UncontrolledForm = () => {
             ) : null
           )}
         </div>
-        <div>
+        <div className="input-container">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -153,7 +153,7 @@ const UncontrolledForm = () => {
             ) : null
           )}
         </div>
-        <div>
+        <div className="input-container">
           <label htmlFor="confirm-password">Confirm password</label>
           <input
             type="password"
@@ -170,7 +170,7 @@ const UncontrolledForm = () => {
             ) : null
           )}
         </div>
-        <div>
+        <div className="input-container">
           <span>Gender </span>
           <label htmlFor="male">Male</label>
           <input
@@ -198,7 +198,7 @@ const UncontrolledForm = () => {
             ) : null
           )}
         </div>
-        <div>
+        <div className="input-container">
           <label htmlFor="tc">Agree to Terms and Conditions</label>
           <input type="checkbox" id="tc" name="tc" ref={tcRef} />
           {validationErrors?.map((validationError, index) =>
@@ -211,7 +211,7 @@ const UncontrolledForm = () => {
           )}
         </div>
 
-        <div>
+        <div className="input-container">
           <label>
             Upload image
             <input
@@ -232,7 +232,7 @@ const UncontrolledForm = () => {
           )}
         </div>
 
-        <div>
+        <div className="input-container">
           <label htmlFor="country">Country</label>
 
           <select id="country" autoComplete="on" ref={countryRef}>

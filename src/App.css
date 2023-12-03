@@ -1,16 +1,16 @@
-p{
+p {
   margin: 5px;
 }
 
-.error-message{
+.error-message {
   color: red;
   font-size: 14px;
 }
 
-.input-container{
-  height: 45px
+.input-container {
+  min-height: 63px;
 }
 
-label{
+label {
   margin-right: 5px;
 }
