@@ -16,7 +16,7 @@ export const Main = () => {
       name={item.name}
       age={item.age}
       email={item.email}
-      password={item.passwordname}
+      password={item.password}
       gender={item.gender}
       country={item.country}
       image={item.image}
