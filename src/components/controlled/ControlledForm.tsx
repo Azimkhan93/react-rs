@@ -40,7 +40,6 @@ const ControlledForm: React.FC = () => {
   ) => {
     const file = event.target.files !== null ? event.target.files[0] : null;
     const base64 = await convertBase64(file);
-    // setImgFile(file);
     setBase64Img(base64);
     imgField.onChange(event);
   };
@@ -50,37 +49,37 @@ const ControlledForm: React.FC = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
+        <div className="input-container">
           <label>Name</label>
           <input {...register('name')} />
-          <p>{errors.name?.message}</p>
+          <p className="error-message">{errors.name?.message}</p>
         </div>
 
-        <div>
+        <div className="input-container">
           <label>Age</label>
           <input {...register('age')} />
-          <p>{errors.age?.message}</p>
+          <p className="error-message">{errors.age?.message}</p>
         </div>
 
-        <div>
+        <div className="input-container">
           <label>E-mail</label>
           <input type="email" {...register('email')} />
-          <p>{errors.email?.message}</p>
+          <p className="error-message">{errors.email?.message}</p>
         </div>
 
-        <div>
+        <div className="input-container">
           <label>Password</label>
           <input type="password" {...register('password')} />
-          <p>{errors.password?.message}</p>
+          <p className="error-message">{errors.password?.message}</p>
         </div>
 
-        <div>
+        <div className="input-container">
           <label>Confirm password</label>
           <input type="password" {...register('confirmPassword')} />
-          <p>{errors.confirmPassword?.message}</p>
+          <p className="error-message">{errors.confirmPassword?.message}</p>
         </div>
 
-        <div className="gender-container">
+        <div className="gender-container input-container">
           <label>Gender </label>
           <div style={{ display: 'inline' }}>
             Male
@@ -90,16 +89,16 @@ const ControlledForm: React.FC = () => {
             Female
             <input type="radio" value="female" {...register('gender')} />
           </div>
-          <p>{errors.gender?.message}</p>
+          <p className="error-message">{errors.gender?.message}</p>
         </div>
 
-        <div>
+        <div className="input-container">
           <label>Agree to Terms and Conditions</label>
           <input type="checkbox" {...register('tc')} />
-          <p>{errors.tc?.message}</p>
+          <p className="error-message">{errors.tc?.message}</p>
         </div>
 
-        <div>
+        <div className="input-container">
           <label>
             Upload image
             <input
@@ -109,10 +108,10 @@ const ControlledForm: React.FC = () => {
               onChange={handleImageUpload}
             />
           </label>
-          <p>{errors.image?.message}</p>
+          <p className="error-message">{errors.image?.message}</p>
         </div>
 
-        <div>
+        <div className="input-container">
           <label>Country</label>
           <select {...register('country')}>
             <option value="">Select Country</option>
@@ -122,7 +121,9 @@ const ControlledForm: React.FC = () => {
               </option>
             ))}
           </select>
-          {errors.country && <p>{errors.country.message}</p>}
+          {errors.country && (
+            <p className="error-message">{errors.country.message}</p>
+          )}
         </div>
 
         <input type="submit" />

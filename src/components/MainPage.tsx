@@ -44,7 +44,7 @@ export const Main = () => {
           Controlled
         </NavLink>
       </nav>
-      <div>{cards}</div>
+      <div className="main-container">{cards}</div>
       <Outlet />
     </div>
   );

@@ -1,3 +1,5 @@
+import './Card.css';
+
 type Props = {
   name: string;
   age: number;
@@ -19,15 +21,15 @@ export const Card = ({
 }: Props) => {
   return (
     <>
-      <div>
-        <div>
+      <div className="card-container">
+        <div className="card-subcontainer">
           <p>Name: {name}</p>
           <p>Age: {age}</p>
           <p>Email: {email}</p>
           <p>Password: {password}</p>
           <p>Gender: {gender}</p>
           <p>Country: {country}</p>
-          <img src={image} alt="image" />
+          <img src={image} width={150} height={150} alt="image" />
         </div>
       </div>
     </>

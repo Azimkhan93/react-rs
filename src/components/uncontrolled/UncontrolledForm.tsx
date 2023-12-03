@@ -88,7 +88,7 @@ const UncontrolledForm = () => {
   return (
     <div>
       <form className="form uncontrolled" onSubmit={handleSubmit}>
-        <div>
+        <div className="input-container">
           <label htmlFor="name">Name</label>
           <input
             type="text"
@@ -99,16 +99,22 @@ const UncontrolledForm = () => {
           />
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'name' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>
-        <div>
+        <div className="input-container">
           <label htmlFor="age">Age</label>
           <input type="text" id="age" name="age" ref={ageRef} />
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'age' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>
@@ -123,7 +129,10 @@ const UncontrolledForm = () => {
           />
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'email' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>
@@ -137,7 +146,10 @@ const UncontrolledForm = () => {
           />
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'password' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>
@@ -151,7 +163,10 @@ const UncontrolledForm = () => {
           />
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'confirmPassword' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>
@@ -176,7 +191,10 @@ const UncontrolledForm = () => {
           />
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'gender' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>
@@ -185,7 +203,10 @@ const UncontrolledForm = () => {
           <input type="checkbox" id="tc" name="tc" ref={tcRef} />
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'tc' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>
@@ -203,7 +224,10 @@ const UncontrolledForm = () => {
           </label>
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'image' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>
@@ -221,7 +245,10 @@ const UncontrolledForm = () => {
           </select>
           {validationErrors?.map((validationError, index) =>
             validationError.path === 'tc' ? (
-              <p key={index}>{`${validationError.message}`}</p>
+              <p
+                className="error-message"
+                key={index}
+              >{`${validationError.message}`}</p>
             ) : null
           )}
         </div>

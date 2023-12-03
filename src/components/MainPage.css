@@ -29,3 +29,7 @@
   /* background-color: chocolate; */
   color: yellow;
 }
+
+.main-container{
+  display: flex;
+}
