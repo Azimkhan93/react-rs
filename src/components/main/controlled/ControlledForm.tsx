@@ -1,11 +1,15 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { userSchema, IFormInput } from '../../../validation/UserValidation';
 import { countries } from '../../../data/country';
 import './ControlledForm.css';
+import { RootState } from '../../../store/store';
+import { setFormData } from '../../../store/formSlice';
 
 export const ControlledForm: React.FC = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -17,8 +21,10 @@ export const ControlledForm: React.FC = () => {
   console.log(errors);
   const onSubmit = (data: IFormInput) => {
     console.log(data);
+    dispatch(setFormData(data));
   };
-
+  const formData = useSelector((state: RootState) => state.form.formData);
+  console.log('formData', formData);
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -36,19 +42,19 @@ export const ControlledForm: React.FC = () => {
 
         <div>
           <label>E-mail</label>
-          <input {...register('email')} />
+          <input type="email" {...register('email')} />
           <p>{errors.email?.message}</p>
         </div>
 
         <div>
           <label>Password</label>
-          <input {...register('password')} />
+          <input type="password" {...register('password')} />
           <p>{errors.password?.message}</p>
         </div>
 
         <div>
           <label>Confirm password</label>
-          <input {...register('confirmPassword')} />
+          <input type="password" {...register('confirmPassword')} />
           <p>{errors.confirmPassword?.message}</p>
         </div>
 

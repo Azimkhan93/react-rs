@@ -2,37 +2,12 @@ import React, { SyntheticEvent, useRef, useState } from 'react';
 import { countries } from '../../../data/country';
 import { userSchema } from '../../../validation/UserValidation';
 import * as yup from 'yup';
-
-// type SpecType = {
-//   strip: boolean;
-//   strict: boolean;
-//   abortEarly: boolean;
-//   recursive: boolean;
-//   disableStackTrace: boolean;
-//   nullable: boolean;
-//   optional: boolean;
-//   coerce: boolean;
-// };
-
-// type Paramstype = {
-//   value: string;
-//   originalValue: string;
-//   path: string;
-//   spec: SpecType;
-// };
-
-// // type ValidationErrorType = {
-// //   value: string;
-// //   path: string;
-// //   type: string;
-// //   errors: string[];
-// //   params: Paramstype;
-// //   inner: [];
-// //   name: string;
-// //   message: string;
-// // };
+import { useSelector, useDispatch } from 'react-redux';
+import { setFormData } from '../../../store/formSlice';
+import { RootState } from '../../../store/store';
 
 const UncontrolledForm = () => {
+  const dispatch = useDispatch();
   const nameRef = useRef<HTMLInputElement | null>(null);
   const ageRef = useRef<HTMLInputElement | null>(null);
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -47,7 +22,6 @@ const UncontrolledForm = () => {
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event?.preventDefault();
-
     const selectedGender = maleRef.current?.checked
       ? maleRef.current.value
       : femaleRef.current?.checked
@@ -80,6 +54,7 @@ const UncontrolledForm = () => {
       country: selectedCountry,
     };
     console.log(data);
+    dispatch(setFormData(data));
 
     try {
       await userSchema.validate(data, { abortEarly: false });
@@ -100,7 +75,8 @@ const UncontrolledForm = () => {
       }
     }
   };
-
+  const formData = useSelector((state: RootState) => state.form.formData);
+  console.log('formData', formData);
   return (
     <div>
       <form className="form uncontrolled" onSubmit={handleSubmit}>
